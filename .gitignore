@@ -1,0 +1,17 @@
+node_modules
+yarn.lock
+package-lock.json
+api.txt
+config.json
+trade.json
+setting.json
+last-states.json
+master.zip
+yarn-error.log
+token.json
+.vscode
+logging.log
+build
+ultimate-bot-win.exe
+ultimate-bot-linux
+ultimate-bot-macos
