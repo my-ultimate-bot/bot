@@ -9,7 +9,7 @@ const logger = require('./logger');
 
 module.exports = async (urlZip, urlPackage, branch) => {
   try {
-    const { name, version, dependencies } = await fs.readJSON('./package.json');
+    const { version, dependencies } = await fs.readJSON('./package.json');
     const fetchRemotePackage = await axios.get(`${urlPackage}/${branch}/package.json`);
     const remoteVersion = fetchRemotePackage.data.version;
     const remoteDependencies = fetchRemotePackage.data.dependencies;
@@ -27,7 +27,7 @@ module.exports = async (urlZip, urlPackage, branch) => {
         const zip = new AdmZip('./updateFiles.zip');
         zip.extractAllTo('./', true);
 
-        const extractedFolder = `./${name}-${branch}`;
+        const extractedFolder = `./bot-${branch}`;
         const listEntries = await fs.readdir(extractedFolder);
         await Promise.all(listEntries.map(async (entry) => fs.move(`${extractedFolder}/${entry}`, `./${entry}`, { overwrite: true })));
 
@@ -42,12 +42,10 @@ module.exports = async (urlZip, urlPackage, branch) => {
             await installPackage(Object.keys(dependencies));
 
             process.exit(0);
-            return false;
           });
-          return false;
+        } else {
+          process.exit(0);
         }
-        process.exit(0);
-        return false;
       });
     } else {
       console.log('The software is up to date');
