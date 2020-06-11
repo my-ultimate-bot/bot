@@ -517,6 +517,12 @@ $(document).ready(() => {
       $('#manual').prop('disabled', true);
     } else if (focusMain) { // Click main section on first init
       $('#main').click();
+
+      // Init skip pair
+      setTimeout(() => {
+        $('#main-skip-pair').select2();
+      }, 500);
+
       focusMain = false;
     }
   });
