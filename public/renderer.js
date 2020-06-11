@@ -496,7 +496,7 @@ $(document).ready(() => {
   // Fetch account list
 
   socket.emit('settingGet');
-  socket.on('settingGet', ({ general, current, list }) => {
+  socket.on('settingGet', ({ current, list }) => {
     // Render account list
     let accountList = '';
     list.map((account) => {
@@ -504,11 +504,6 @@ $(document).ready(() => {
     });
     $('#account-list').html(accountList);
     $('#account-list').val(current.name);
-
-    // Filling general form
-    Object.keys(general).map((prop) => {
-      $(`#${prop}`).val(general[prop]);
-    });
 
     // Filling current account form
     Object.keys(current).map((prop) => {
@@ -524,12 +519,6 @@ $(document).ready(() => {
       $('#main').click();
       focusMain = false;
     }
-  });
-
-  // Save general settings
-  $('#general-save').click((e) => {
-    e.preventDefault();
-    socket.emit('setting:general:save', $('#general-setting').serializeArray());
   });
 
   // Change current account on selecting
