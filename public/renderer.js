@@ -77,8 +77,9 @@ $(document).ready(() => {
   const timeFrameStableMarketRef = $('#main-time-frame-stable-market');
   const tradingStrictnessRef = $('#main-trading-strictness');
   const skipPairRef = $('#main-skip-pair');
+  const modeRef = $('#main-mode');
 
-  const mainListRef = [marketPlaceRef, useFundPercentageRef, takeProfitPctRef, stopLossPctRef, useStableMarketRef, stableMarketRef, timeOrderRef, timeFrameRef, timeFrameStableMarketRef, tradingStrictnessRef, skipPairRef];
+  const mainListRef = [marketPlaceRef, useFundPercentageRef, takeProfitPctRef, stopLossPctRef, useStableMarketRef, stableMarketRef, timeOrderRef, timeFrameRef, timeFrameStableMarketRef, tradingStrictnessRef, skipPairRef, modeRef];
 
   socket.on('isRunning', (isRunning) => {
     if (isRunning) {
@@ -199,9 +200,10 @@ $(document).ready(() => {
     const timeFrameStableMarket = $('#main-time-frame-stable-market').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
+    const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, takeProfitPct, stopLossPct, useStableMarket, stableMarket, timeOrder, timeFrame, timeFrameStableMarket, tradingStrictness, skipPair,
+      marketPlace, useFundPercentage, takeProfitPct, stopLossPct, useStableMarket, stableMarket, timeOrder, timeFrame, timeFrameStableMarket, tradingStrictness, skipPair, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
