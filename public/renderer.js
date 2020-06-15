@@ -66,20 +66,20 @@ $(document).ready(() => {
   $('[data-toggle="tooltip"]').tooltip();
 
   // Reload previous states
-  const marketPlaceRef = $('#main-market-place');
-  const useFundPercentageRef = $('#main-amount-percentage');
-  const takeProfitPctRef = $('#main-take-profit');
-  const stopLossPctRef = $('#main-stop-loss');
-  const useStableMarketRef = $('#main-use-stable-market');
-  const stableMarketRef = $('#main-stable-market');
-  const timeOrderRef = $('#main-time-order');
-  const timeFrameRef = $('#main-time-frame');
-  const timeFrameStableMarketRef = $('#main-time-frame-stable-market');
-  const tradingStrictnessRef = $('#main-trading-strictness');
-  const skipPairRef = $('#main-skip-pair');
-  const modeRef = $('#main-mode');
-
-  const mainListRef = [marketPlaceRef, useFundPercentageRef, takeProfitPctRef, stopLossPctRef, useStableMarketRef, stableMarketRef, timeOrderRef, timeFrameRef, timeFrameStableMarketRef, tradingStrictnessRef, skipPairRef, modeRef];
+  const lastStatesRef = {
+    marketPlace: $('#main-market-place'),
+    useFundPercentage: $('#main-amount-percentage'),
+    takeProfitPct: $('#main-take-profit'),
+    stopLossPct: $('#main-stop-loss'),
+    smartStopLoss: $('#main-smart-stop-loss'),
+    useStableMarket: $('#main-use-stable-market'),
+    stableMarket: $('#main-stable-market'),
+    timeOrder: $('#main-time-order'),
+    timeFrame: $('#main-time-frame'),
+    tradingStrictness: $('#main-trading-strictness'),
+    skipPair: $('#main-skip-pair'),
+    mode: $('#main-mode'),
+  };
 
   socket.on('isRunning', (isRunning) => {
     if (isRunning) {
@@ -94,15 +94,17 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    Object.keys(lastStates).map((key, index) => {
-      if (typeof lastStates[key] !== 'object') {
-        mainListRef[index].val(lastStates[key].toString());
-      }
-
-      if (Array.isArray(lastStates[key])) {
-        $('#main-skip-pair').select2();
-        mainListRef[index].val(lastStates[key]);
-        mainListRef[index].trigger('change');
+    Object.keys(lastStates).map((key) => {
+      if (lastStatesRef[key]) {
+        if (key !== 'smartStopLoss' && key !== 'skipPair') {
+          lastStatesRef[key].val(lastStates[key]);
+        } else if (key === 'smartStopLoss') {
+          lastStatesRef[key].prop('checked', lastStates[key] || true);
+        } else if (key === 'skipPair') {
+          lastStatesRef[key].select2();
+          lastStatesRef[key].val(lastStates[key]);
+          lastStatesRef[key].trigger('change');
+        }
       }
     });
   });
@@ -117,11 +119,11 @@ $(document).ready(() => {
     $('#main-skip-pair').select2();
 
     // Restore last states
-    Object.keys(lastStates).map((key, index) => {
-      if (Array.isArray(lastStates[key])) {
-        $('#main-skip-pair').select2();
-        mainListRef[index].val(lastStates[key]);
-        mainListRef[index].trigger('change');
+    Object.keys(lastStates).map((key) => {
+      if (key === 'skipPair') {
+        lastStatesRef[key].select2();
+        lastStatesRef[key].val(lastStates[key]);
+        lastStatesRef[key].trigger('change');
       }
     });
 
@@ -192,7 +194,8 @@ $(document).ready(() => {
     const marketPlace = $('#main-market-place').val();
     const useFundPercentage = $('#main-amount-percentage').val() !== '' ? parseFloat($('#main-amount-percentage').val()) : 15;
     const takeProfitPct = $('#main-take-profit').val() !== '' ? parseFloat($('#main-take-profit').val()) : 1.5;
-    const stopLossPct = $('#main-stop-loss').val() !== '' ? parseFloat($('#main-stop-loss').val()) : 1.5;
+    const stopLossPct = $('#main-stop-loss').val() !== '' ? parseFloat($('#main-stop-loss').val()) : 3;
+    const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
     const useStableMarket = $('#main-use-stable-market').val() === 'true';
     const stableMarket = $('#main-stable-market').val();
     const timeOrder = $('#main-time-order').val() !== '' ? parseFloat($('#main-time-order').val()) : 45;
@@ -203,7 +206,7 @@ $(document).ready(() => {
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, takeProfitPct, stopLossPct, useStableMarket, stableMarket, timeOrder, timeFrame, timeFrameStableMarket, tradingStrictness, skipPair, mode,
+      marketPlace, useFundPercentage, takeProfitPct, stopLossPct, smartStopLoss, useStableMarket, stableMarket, timeOrder, timeFrame, timeFrameStableMarket, tradingStrictness, skipPair, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');

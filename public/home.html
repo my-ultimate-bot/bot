@@ -16,7 +16,7 @@
   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-  <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="./assets/css/black-dashboard.css?v=1.1.1" rel="stylesheet" />
   <link href="./assets/css/custom.css" rel="stylesheet" />
 </head>
 
@@ -95,7 +95,9 @@
                           <div class="card-body">
                             <form class="form-horizontal">
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="The market place you want to trade, eg: BTC, ETH, BNB, ...">Market Place</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="The market place you want to trade, eg: BTC, ETH, BNB, ...">Market
+                                  Place</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-market-place"
@@ -109,7 +111,9 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="eg: 15% means it will use 15% of your total funds. If you have 0.01 BTC in your account, you set 50%, so that means the bot will use 0.005 BTC per trade">Use Fund %</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: 15% means it will use 15% of your total funds. If you have 0.01 BTC in your account, you set 50%, so that means the bot will use 0.005 BTC per trade">Use
+                                  Fund %</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-amount-percentage"
@@ -119,7 +123,9 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="% take profit, eg: The bot bought at rate 0.01, % take profit is 1.5%, it will place a selling order at rate 0.01015 (1.5%)">Take Profit %</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% take profit, eg: The bot bought at rate 0.01, % take profit is 1.5%, it will place a selling order at rate 0.01015 (1.5%)">Take
+                                  Profit %</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <input type="number" class="form-control" name="main-take-profit"
@@ -131,19 +137,37 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last trade < 0.0097, it will stop loss (-3%)">Stop Loss %</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last trade < 0.0097, it will stop loss (-3%)">Stop
+                                  Loss %</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <input type="number" class="form-control" name="main-stop-loss" id="main-stop-loss"
                                       value="3" placeholder="% Stop Loss">
                                   </div>
-                                </div>
-                                <div class="col-md-3">
                                   <span>%</span>
+                                </div>
+                                <div class="col-md-1">
+                                  <span>%</span>
+                                </div>
+                                <div class="col-md-2">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" checked name="main-smart-stop-loss" id="main-smart-stop-loss">
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                      <span data-toggle="tooltip" data-placement="top"
+                                        title="Prevent from flash pump-n-dump. You should enable this option">Smart
+                                        Stop Loss</span>
+                                    </label>
+                                  </div>
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="Decide to use stable market or not, eg: If your account holds BTC and USDT, the bot will scan on both 2 markets too">Use Stable Market</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Decide to use stable market or not, eg: If your account holds BTC and USDT, the bot will scan on both 2 markets too">Use
+                                  Stable Market</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-use-stable-market"
@@ -155,7 +179,9 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="The stable market you want to trade, eg: USDT, USDC, TUSD">Stable Market</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="The stable market you want to trade, eg: USDT, USDC, TUSD">Stable
+                                  Market</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-stable-market"
@@ -170,7 +196,9 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="45 means after 45 minutes, if the bot cannot buy the coin, it will cancel the order">Time Order Expiration</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="45 means after 45 minutes, if the bot cannot buy the coin, it will cancel the order">Time
+                                  Order Expiration</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <input type="number" class="form-control" name="main-time-order"
@@ -183,7 +211,8 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="The time frame for the main marketplace">Time Frame</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="The time frame for the main marketplace">Time Frame</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-time-frame"
@@ -199,23 +228,9 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="The time frame for the stable market">Time Frame Stable Market</label>
-                                <div class="col-md-9">
-                                  <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-time-frame-stable-market"
-                                      name="main-time-frame-stable-market">
-                                      <option value="1h">1 hour</option>
-                                      <option value="30m">30 minutes</option>
-                                      <option value="1m">1 minute</option>
-                                      <option value="5m">5 minutes</option>
-                                      <option value="15m">15 minutes</option>
-                                      <option value="1d">1 day</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="Define how often the bot will trade. I recommend to stick to the Intensive option">Trading Strictness</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Define how often the bot will trade. I recommend to stick to the Intensive option">Trading
+                                  Strictness</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-trading-strictness"
@@ -231,20 +246,23 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="If you don't want the bot to trade on specific pairs, please list it in here">Skip Pairs</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="If you don't want the bot to trade on specific pairs, please list it in here">Skip
+                                  Pairs</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-skip-pair" name="main-skip-pair" multiple>
+                                    <select class="custom-select dark-background" id="main-skip-pair"
+                                      name="main-skip-pair" multiple>
                                     </select>
                                   </div>
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="If you choose 'Notification' mode, then the bot only sends you signals and it is up to you to buy the coin or not. If you chose 'Live' mode, the bot will auto buy / sell for you">Mode</label>
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="If you choose 'Notification' mode, then the bot only sends you signals and it is up to you to buy the coin or not. If you chose 'Live' mode, the bot will auto buy / sell for you">Mode</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-mode"
-                                      name="main-mode">
+                                    <select class="custom-select dark-background" id="main-mode" name="main-mode">
                                       <option value="live">Live</option>
                                       <option value="notification">Notification
                                       </option>
@@ -670,15 +688,11 @@
                           <img class="avatar" src="../../assets/img/author_onfqzmpgvr.jpg" alt="Tony Do">
                           <h5 class="title">Ultimate Bot</h5>
                         </a>
-                        <p class="description">
-                          Contact me via (I only have this contact, beware of scammers!)
-                        </p>
                       </div>
                     </div>
                     <div class="card-footer">
                       <div class="author-link-container">
-                        <a id="official-website" href="https://myultimatebot.com"
-                          target="_blank" class="author-link">
+                        <a id="official-website" href="https://myultimatebot.com" target="_blank" class="author-link">
                           Official website
                         </a>
                         <a id="fiverr" href="https://www.fiverr.com/onfqzmpgvr/provide-my-cryptocurrency-trading-bot"
@@ -723,7 +737,7 @@
   <!--  Notifications Plugin    -->
   <script src="./assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="./assets/js/black-dashboard.min.js?v=1.1.1"></script>
   <!-- Sweet Alert2  -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
