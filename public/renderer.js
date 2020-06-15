@@ -7,7 +7,7 @@ Number.prototype.toFixedNumber = function (x, base) {
 
 Number.prototype.noExponents = function () {
   const data = String(this).split(/[eE]/);
-  if (data.length == 1) return data[0];
+  if (data.length === 1) return data[0];
   let z = ''; const sign = this < 0 ? '-' : '';
   const str = data[0].replace('.', '');
   let mag = Number(data[1]) + 1;
@@ -69,11 +69,12 @@ $(document).ready(() => {
   const lastStatesRef = {
     marketPlace: $('#main-market-place'),
     useFundPercentage: $('#main-amount-percentage'),
+    reinvestment: $('#main-reinvestment'),
     takeProfitPct: $('#main-take-profit'),
     stopLossPct: $('#main-stop-loss'),
     smartStopLoss: $('#main-smart-stop-loss'),
-    useStableMarket: $('#main-use-stable-market'),
     stableMarket: $('#main-stable-market'),
+    useStableMarket: $('#main-use-stable-market'),
     timeOrder: $('#main-time-order'),
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
@@ -94,17 +95,15 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    Object.keys(lastStates).map((key) => {
-      if (lastStatesRef[key]) {
-        if (key !== 'smartStopLoss' && key !== 'skipPair') {
-          lastStatesRef[key].val(lastStates[key]);
-        } else if (key === 'smartStopLoss') {
-          lastStatesRef[key].prop('checked', lastStates[key] || true);
-        } else if (key === 'skipPair') {
-          lastStatesRef[key].select2();
-          lastStatesRef[key].val(lastStates[key]);
-          lastStatesRef[key].trigger('change');
-        }
+    Object.keys(lastStatesRef).map((key) => {
+      if (key !== 'smartStopLoss' && key !== 'skipPair') {
+        lastStatesRef[key].val(lastStates[key]);
+      } else if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
+        lastStatesRef[key].prop('checked', lastStates[key] || true);
+      } else if (key === 'skipPair') {
+        lastStatesRef[key].select2();
+        lastStatesRef[key].val(lastStates[key]);
+        lastStatesRef[key].trigger('change');
       }
     });
   });
@@ -119,7 +118,7 @@ $(document).ready(() => {
     $('#main-skip-pair').select2();
 
     // Restore last states
-    Object.keys(lastStates).map((key) => {
+    Object.keys(lastStatesRef).map((key) => {
       if (key === 'skipPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
@@ -193,20 +192,20 @@ $(document).ready(() => {
     // const pair = selectedCoinMAIN;
     const marketPlace = $('#main-market-place').val();
     const useFundPercentage = $('#main-amount-percentage').val() !== '' ? parseFloat($('#main-amount-percentage').val()) : 15;
+    const reinvestment = $('#main-reinvestment').is(':checked');
     const takeProfitPct = $('#main-take-profit').val() !== '' ? parseFloat($('#main-take-profit').val()) : 1.5;
     const stopLossPct = $('#main-stop-loss').val() !== '' ? parseFloat($('#main-stop-loss').val()) : 3;
     const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
-    const useStableMarket = $('#main-use-stable-market').val() === 'true';
     const stableMarket = $('#main-stable-market').val();
+    const useStableMarket = $('#main-use-stable-market').is(':checked');
     const timeOrder = $('#main-time-order').val() !== '' ? parseFloat($('#main-time-order').val()) : 45;
     const timeFrame = $('#main-time-frame').val();
-    const timeFrameStableMarket = $('#main-time-frame-stable-market').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, takeProfitPct, stopLossPct, smartStopLoss, useStableMarket, stableMarket, timeOrder, timeFrame, timeFrameStableMarket, tradingStrictness, skipPair, mode,
+      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
