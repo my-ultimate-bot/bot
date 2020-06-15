@@ -86,9 +86,17 @@ $(document).ready(() => {
     if (isRunning) {
       toggleClickIndex = 1;
       $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
+
+      Object.values(lastStatesRef).forEach((dom) => {
+        dom.prop('disabled', true);
+      });
     } else {
       toggleClickIndex = 0;
       $('#main-start').html('<i class="tim-icons icon-triangle-right-17"></i>Start');
+
+      Object.values(lastStatesRef).forEach((dom) => {
+        dom.prop('disabled', false);
+      });
     }
   });
 
@@ -209,9 +217,17 @@ $(document).ready(() => {
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
+
+    Object.values(lastStatesRef).forEach((dom) => {
+      dom.prop('disabled', true);
+    });
   }, () => {
     socket.emit('main-stop');
-    $('#main-start').html('<i class="tim-icons icon-triangle-right-17"></i>Start').attr('disabled', true);
+    $('#main-start').html('<i class="tim-icons icon-triangle-right-17"></i>Start').prop('disabled', true);
+
+    Object.values(lastStatesRef).forEach((dom) => {
+      dom.prop('disabled', false);
+    });
   });
 
   // Live trigger info

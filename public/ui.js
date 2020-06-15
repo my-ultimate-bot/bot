@@ -135,10 +135,10 @@ $(document).ready(() => {
 
   // Stable Market Check
   $('#main-use-stable-market').on('change', function () {
-    if ($(this).val() === 'false') {
-      $('#main-stable-market').prop('disabled', true);
-    } else {
+    if ($(this).is(':checked')) {
       $('#main-stable-market').prop('disabled', false);
+    } else {
+      $('#main-stable-market').prop('disabled', true);
     }
   });
 
