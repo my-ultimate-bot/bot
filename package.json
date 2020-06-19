@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.8.51",
+  "version": "4.8.52",
   "main": "start.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.30.2",
+    "ccxt": "^1.30.22",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
@@ -29,7 +29,7 @@
     "fs-extra": "^9.0.1",
     "get-port": "^5.1.1",
     "lodash": "^4.17.15",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "node-machine-id": "^1.1.12",
     "node-telegram-bot-api": "^0.50.0",
     "npm": "^6.14.5",
