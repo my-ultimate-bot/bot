@@ -104,11 +104,17 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).map((key) => {
+      console.log(key, lastStates[key]);
+
       if (key !== 'smartStopLoss' && key !== 'skipPair') {
         lastStatesRef[key].val(lastStates[key]);
-      } else if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
+      }
+
+      if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
         lastStatesRef[key].prop('checked', lastStates[key] || true);
-      } else if (key === 'skipPair') {
+      }
+
+      if (key === 'skipPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
         lastStatesRef[key].trigger('change');
