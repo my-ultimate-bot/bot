@@ -24,34 +24,40 @@ module.exports = async (urlZip, urlPackage, branch) => {
       data.pipe(file);
 
       file.once('finish', async () => {
-        const zip = new AdmZip('./updateFiles.zip');
-        zip.extractAllTo('./', true);
+        try {
+          const zip = new AdmZip('./updateFiles.zip');
+          zip.extractAllTo('./', true);
 
-        const extractedFolder = `./bot-${branch}`;
-        const listEntries = await fs.readdir(extractedFolder);
-        await Promise.all(listEntries.map(async (entry) => fs.move(`${extractedFolder}/${entry}`, `./${entry}`, { overwrite: true })));
+          const extractedFolder = `./bot-${branch}`;
+          const listEntries = await fs.readdir(extractedFolder);
+          await Promise.all(listEntries.map(async (entry) => fs.move(`${extractedFolder}/${entry}`, `./${entry}`, { overwrite: true })));
 
-        await fs.remove('./updateFiles.zip');
-        await fs.remove(extractedFolder);
+          await fs.remove('./updateFiles.zip');
+          await fs.remove(extractedFolder);
 
-        const dependenciesStringified = JSON.stringify(dependencies);
-        const remoteDependenciesStringified = JSON.stringify(remoteDependencies);
-        if (dependenciesStringified !== remoteDependenciesStringified) {
-          npm.load({ 'ignore-scripts': true, loglevel: 'error', progress: false }, async () => {
-            try {
-              const installPackage = promisify(npm.commands.install);
-              console.log('New version detected, installing...');
+          const dependenciesStringified = JSON.stringify(dependencies);
+          const remoteDependenciesStringified = JSON.stringify(remoteDependencies);
+          if (dependenciesStringified !== remoteDependenciesStringified) {
+            npm.load({ 'ignore-scripts': true, loglevel: 'error', progress: false }, async () => {
+              try {
+                const installPackage = promisify(npm.commands.install);
+                console.log('New version detected, installing...');
 
-              await installPackage(Object.keys(remoteDependencies));
-            } catch (error) {
-              console.error(error);
-              logger.error(error);
-            }
-
+                await installPackage(Object.keys(remoteDependencies));
+              } catch (error) {
+                console.error(error);
+                logger.error(error);
+              } finally {
+                process.exit(0);
+              }
+            });
+          } else {
             process.exit(0);
-          });
-        } else {
-          process.exit(0);
+          }
+        } catch (e) {
+          console.error(e);
+          logger.error(e);
+          return false;
         }
       });
     } else {
@@ -61,6 +67,6 @@ module.exports = async (urlZip, urlPackage, branch) => {
   } catch (e) {
     console.error(e);
     logger.error(e);
-    return true;
+    return false;
   }
 };
