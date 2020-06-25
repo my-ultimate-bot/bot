@@ -1,10 +1,10 @@
 {
   "name": "ultimate-bot",
-  "version": "4.8.69",
-  "main": "start.js",
+  "version": "4.8.8",
+  "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node start.js",
+    "start": "node app.js",
     "build": "node build.js"
   },
   "bin": "start.js",
@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.30.41",
+    "ccxt": "^1.30.44",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
@@ -47,6 +47,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^1.2.0"
+    "javascript-obfuscator": "^1.2.1"
   }
 }
