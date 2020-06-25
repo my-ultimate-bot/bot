@@ -38,11 +38,15 @@ module.exports = async (urlZip, urlPackage, branch) => {
         const remoteDependenciesStringified = JSON.stringify(remoteDependencies);
         if (dependenciesStringified !== remoteDependenciesStringified) {
           npm.load({ 'ignore-scripts': true, loglevel: 'error', progress: false }, async () => {
-            const installPackage = promisify(npm.commands.install);
-            const install = await installPackage(Object.keys(remoteDependencies));
+            try {
+              const installPackage = promisify(npm.commands.install);
+              console.log('New version detected, installing...');
 
-            console.log('New version detected, installing...');
-            console.log(install);
+              await installPackage(Object.keys(remoteDependencies));
+            } catch (error) {
+              console.error(error);
+              logger.error(error);
+            }
 
             process.exit(0);
           });
