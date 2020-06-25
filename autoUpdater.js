@@ -34,9 +34,9 @@ module.exports = async (urlZip, urlPackage, branch) => {
         await fs.remove('./updateFiles.zip');
         await fs.remove(extractedFolder);
 
-        const dependenciesKey = Object.keys(dependencies);
-        const remoteDependenciesKey = Object.keys(remoteDependencies);
-        if (dependenciesKey.length !== remoteDependenciesKey.length) {
+        const dependenciesStringified = JSON.stringify(dependencies);
+        const remoteDependenciesStringified = JSON.stringify(remoteDependencies);
+        if (dependenciesStringified !== remoteDependenciesStringified) {
           npm.load({ 'ignore-scripts': true, loglevel: 'error', progress: false }, async () => {
             const installPackage = promisify(npm.commands.install);
             await installPackage(Object.keys(dependencies));

@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.8.65",
+  "version": "4.8.66",
   "main": "start.js",
   "license": "MIT",
   "scripts": {
@@ -15,12 +15,12 @@
   },
   "description": "Ultimate bot",
   "dependencies": {
-    "adm-zip": "^0.4.14",
+    "adm-zip": "^0.4.16",
     "auto-reload-json": "^1.0.2",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.30.35",
+    "ccxt": "^1.30.41",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
@@ -44,9 +44,9 @@
     "technicalindicators": "^3.1.0",
     "utility": "^1.16.3",
     "weighted-mean": "^1.0.2",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^1.1.0"
+    "javascript-obfuscator": "^1.2.0"
   }
 }
