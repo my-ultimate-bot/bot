@@ -1,8 +1,7 @@
 $(document).ready(() => {
   $().ready(() => {
-    $('#official-website').attr('href', 'https://myultimatebot.com');
-    $('#fiverr').attr('href', 'https://www.fiverr.com/onfqzmpgvr/provide-my-cryptocurrency-trading-bot');
-    $('#telegram').attr('href', 'https://t.me/end_lesslove2012');
+    $('#fiverr').attr('href', 'https://www.fiverr.com/robinthedev/do-cryptocurrency-crypto-trading-bot-development');
+    $('#telegram').attr('href', 'https://t.me/chuksheroic');
 
     $sidebar = $('.sidebar');
     $navbar = $('.navbar');
