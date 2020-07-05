@@ -79,6 +79,7 @@ $(document).ready(() => {
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
     skipPair: $('#main-skip-pair'),
+    maxOpenOrder: $('#main-max-open-order'),
     mode: $('#main-mode'),
   };
 
@@ -214,10 +215,11 @@ $(document).ready(() => {
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
+    const maxOpenOrder = $('#main-max-open-order').val() !== '' ? parseFloat($('#main-max-open-order').val()) : 2;
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, mode,
+      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, maxOpenOrder, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
