@@ -297,7 +297,7 @@ $(document).ready(() => {
   socket.on('error', (msg) => {
     $('#trigger')
       .prepend(`<div class="alert alert-danger">
-        <span>For debugging only: ${msg.slice(0, 50)}</span>
+        <span>For debugging only: ${msg}</span>
     </div>`);
     removeTriggerListOverLoad();
     console.log(msg);
