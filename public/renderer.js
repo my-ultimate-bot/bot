@@ -240,8 +240,8 @@ $(document).ready(() => {
   function removeTriggerListOverLoad() {
     let alertLength = $('.alert').length;
 
-    if (alertLength > 50) {
-      while (alertLength > 50) {
+    if (alertLength > 500) {
+      while (alertLength > 500) {
         $('.alert').last().remove();
         alertLength = $('.alert').length;
       }
