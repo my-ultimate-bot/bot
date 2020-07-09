@@ -101,7 +101,6 @@ $(document).ready(() => {
     }
   });
 
-
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).map((key) => {
@@ -295,7 +294,14 @@ $(document).ready(() => {
   });
 
   // Error
-  socket.on('error', (msg) => console.log(msg));
+  socket.on('error', (msg) => {
+    $('#trigger')
+      .prepend(`<div class="alert alert-danger">
+        <span>For debugging only: ${msg.slice(0, 50)}</span>
+    </div>`);
+    removeTriggerListOverLoad();
+    console.log(msg);
+  });
 
   // Order page
   // Loading active and history orders
@@ -515,7 +521,6 @@ $(document).ready(() => {
       });
     }
   });
-
 
   // Setting page
 
