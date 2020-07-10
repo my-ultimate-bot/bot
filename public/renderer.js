@@ -295,11 +295,11 @@ $(document).ready(() => {
 
   // Error
   socket.on('error', (msg) => {
-    $('#trigger')
-      .prepend(`<div class="alert alert-danger">
-        <span>For debugging only: ${msg}</span>
-    </div>`);
-    removeTriggerListOverLoad();
+    // $('#trigger')
+    //   .prepend(`<div class="alert alert-danger">
+    //     <span>For debugging only: ${msg}</span>
+    // </div>`);
+    // removeTriggerListOverLoad();
     console.log(msg);
   });
 

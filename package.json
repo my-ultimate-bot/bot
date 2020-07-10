@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.9.26",
+  "version": "4.9.27",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.30.74",
+    "ccxt": "^1.30.82",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
@@ -36,7 +36,7 @@
     "ora": "^4.0.4",
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.8",
-    "public-ip": "^4.0.1",
+    "public-ip": "^4.0.2",
     "qs": "^6.9.4",
     "random-words": "^1.1.1",
     "socket.io": "^2.3.0",
@@ -47,6 +47,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^1.4.0"
+    "javascript-obfuscator": "^1.5.1"
   }
 }
