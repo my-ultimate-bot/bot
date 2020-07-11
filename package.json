@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.9.27",
+  "version": "4.9.28",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -38,11 +38,9 @@
     "passport-cookie": "^1.0.8",
     "public-ip": "^4.0.2",
     "qs": "^6.9.4",
-    "random-words": "^1.1.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "technicalindicators": "^3.1.0",
-    "utility": "^1.16.3",
     "weighted-mean": "^1.0.2",
     "winston": "^3.3.3"
   },

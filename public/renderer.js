@@ -47,7 +47,6 @@ $(document).ready(() => {
   // Home page
   // Init
 
-  socket.emit('author', $('#official-website').attr('href'));
   socket.emit('version');
   socket.once('version', (version) => {
     const cookieVersion = Cookies.get('version');
