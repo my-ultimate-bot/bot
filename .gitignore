@@ -12,7 +12,7 @@ token.json
 .vscode
 logging.log
 build
-ultimate-bot-win.exe
-ultimate-bot-linux
-ultimate-bot-macos
+3x-capital-bot-win.exe
+3x-capital-bot-linux
+3x-capital-bot-macos
 license.json
