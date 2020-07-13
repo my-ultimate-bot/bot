@@ -103,18 +103,14 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).map((key) => {
-      if (key !== 'smartStopLoss' && key !== 'skipPair') {
-        lastStatesRef[key].val(lastStates[key]);
-      }
-
       if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
-      }
-
-      if (key === 'skipPair') {
+      } else if (key === 'skipPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
         lastStatesRef[key].trigger('change');
+      } else {
+        lastStatesRef[key].val(lastStates[key]);
       }
     });
   });
@@ -313,13 +309,16 @@ $(document).ready(() => {
   socket.on('fetchAsset', (assets) => {
     $('#list-assets').html('');
     const assetTable = assets.reduce((totalAssetTable, {
-      coin = '-', balance = 0,
+      coin = '-', balance = 0, inUSD = 0,
     }) => `${totalAssetTable}<tr>
       <td class="text-center">
         ${coin}
       </td>
       <td class="text-center">
         ${balance}
+      </td>
+      <td class="text-center">
+        ${inUSD.toFixedNumber(2).noExponents()} USD
       </td>
     </tr>`, '');
     $('#list-assets').html(assetTable);
@@ -377,7 +376,7 @@ $(document).ready(() => {
   socket.on('listHistoryOrder', (data) => {
     $('#list-history-orders').html('');
     const orderHistoryTable = data.reduce((totalOrderHistoryTable, {
-      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-',
+      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-', inUSD = 0,
     }) => `${totalOrderHistoryTable}<tr>
       <td class="text-center">
         ${moment(datetime).format('YYYY-MM-DD HH:mm')}
@@ -395,7 +394,7 @@ $(document).ready(() => {
         ${side.toUpperCase()}
       </td>
       <td class="text-center">
-        ${profitLoss} %
+        ${profitLoss.toFixedNumber(2).noExponents()} % (${inUSD.toFixedNumber(2).noExponents()} USD)
       </td>
     </tr>`, '');
     $('#list-history-orders').html(orderHistoryTable);
