@@ -376,7 +376,7 @@ $(document).ready(() => {
   socket.on('listHistoryOrder', (data) => {
     $('#list-history-orders').html('');
     const orderHistoryTable = data.reduce((totalOrderHistoryTable, {
-      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-', inUSD = 0,
+      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-', inUSD = '-',
     }) => `${totalOrderHistoryTable}<tr>
       <td class="text-center">
         ${moment(datetime).format('YYYY-MM-DD HH:mm')}
@@ -394,7 +394,7 @@ $(document).ready(() => {
         ${side.toUpperCase()}
       </td>
       <td class="text-center">
-        ${profitLoss.toFixedNumber(2).noExponents()} % (${inUSD.toFixedNumber(2).noExponents()} USD)
+        ${typeof profitLoss === 'number' ? profitLoss.toFixedNumber(2).noExponents() : profitLoss} % (${typeof inUSD === 'number' ? inUSD.toFixedNumber(2).noExponents() : inUSD} USD)
       </td>
     </tr>`, '');
     $('#list-history-orders').html(orderHistoryTable);
