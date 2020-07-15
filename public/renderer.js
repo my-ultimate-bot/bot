@@ -47,7 +47,6 @@ $(document).ready(() => {
   // Home page
   // Init
 
-  socket.emit('author', $('#official-website').attr('href'));
   socket.emit('version');
   socket.once('version', (version) => {
     const cookieVersion = Cookies.get('version');
@@ -79,6 +78,7 @@ $(document).ready(() => {
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
     skipPair: $('#main-skip-pair'),
+    maxOpenOrder: $('#main-max-open-order'),
     mode: $('#main-mode'),
   };
 
@@ -100,22 +100,17 @@ $(document).ready(() => {
     }
   });
 
-
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).map((key) => {
-      if (key !== 'smartStopLoss' && key !== 'skipPair') {
-        lastStatesRef[key].val(lastStates[key]);
-      }
-
       if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
-      }
-
-      if (key === 'skipPair') {
+      } else if (key === 'skipPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
         lastStatesRef[key].trigger('change');
+      } else {
+        lastStatesRef[key].val(lastStates[key]);
       }
     });
   });
@@ -214,10 +209,11 @@ $(document).ready(() => {
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
+    const maxOpenOrder = $('#main-max-open-order').val() !== '' ? parseFloat($('#main-max-open-order').val()) : 2;
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, mode,
+      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, maxOpenOrder, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
@@ -239,8 +235,8 @@ $(document).ready(() => {
   function removeTriggerListOverLoad() {
     let alertLength = $('.alert').length;
 
-    if (alertLength > 50) {
-      while (alertLength > 50) {
+    if (alertLength > 500) {
+      while (alertLength > 500) {
         $('.alert').last().remove();
         alertLength = $('.alert').length;
       }
@@ -293,7 +289,14 @@ $(document).ready(() => {
   });
 
   // Error
-  socket.on('error', (msg) => console.log(msg));
+  socket.on('error', (msg) => {
+    // $('#trigger')
+    //   .prepend(`<div class="alert alert-danger">
+    //     <span>For debugging only: ${msg}</span>
+    // </div>`);
+    // removeTriggerListOverLoad();
+    console.log(msg);
+  });
 
   // Order page
   // Loading active and history orders
@@ -306,13 +309,16 @@ $(document).ready(() => {
   socket.on('fetchAsset', (assets) => {
     $('#list-assets').html('');
     const assetTable = assets.reduce((totalAssetTable, {
-      coin = '-', balance = 0,
+      coin = '-', balance = 0, inUSD = 0,
     }) => `${totalAssetTable}<tr>
       <td class="text-center">
         ${coin}
       </td>
       <td class="text-center">
         ${balance}
+      </td>
+      <td class="text-center">
+        ${inUSD.toFixedNumber(2).noExponents()} USD
       </td>
     </tr>`, '');
     $('#list-assets').html(assetTable);
@@ -370,7 +376,7 @@ $(document).ready(() => {
   socket.on('listHistoryOrder', (data) => {
     $('#list-history-orders').html('');
     const orderHistoryTable = data.reduce((totalOrderHistoryTable, {
-      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-',
+      datetime = moment().valueOf(), symbol = '-', amount = '-', price = '-', side = '-', profitLoss = '-', inUSD = '-',
     }) => `${totalOrderHistoryTable}<tr>
       <td class="text-center">
         ${moment(datetime).format('YYYY-MM-DD HH:mm')}
@@ -388,7 +394,7 @@ $(document).ready(() => {
         ${side.toUpperCase()}
       </td>
       <td class="text-center">
-        ${profitLoss} %
+        ${typeof profitLoss === 'number' ? profitLoss.toFixedNumber(2).noExponents() : profitLoss} % (${typeof inUSD === 'number' ? inUSD.toFixedNumber(2).noExponents() : inUSD} USD)
       </td>
     </tr>`, '');
     $('#list-history-orders').html(orderHistoryTable);
@@ -513,7 +519,6 @@ $(document).ready(() => {
       });
     }
   });
-
 
   // Setting page
 

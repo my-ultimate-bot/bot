@@ -279,6 +279,19 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Define maximum open orders. The bot will wait until these orders to be filled. For your safety, I recommend set this to 2">Maximum open orders</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-max-open-order"
+                                      id="main-max-open-order" value="2" placeholder="Maximum open orders">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>Open orders</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
                                   title="If you choose 'Notification' mode, then the bot only sends you signals and it is up to you to buy the coin or not. If you chose 'Live' mode, the bot will auto buy / sell for you">Mode</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
@@ -328,6 +341,9 @@
                               </th>
                               <th class="text-center">
                                 Balance
+                              </th>
+                              <th class="text-center">
+                                In USD
                               </th>
                             </tr>
                           </thead>
