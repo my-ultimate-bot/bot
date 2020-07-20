@@ -102,7 +102,7 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    Object.keys(lastStatesRef).map((key) => {
+    Object.keys(lastStatesRef).forEach((key) => {
       if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
       } else if (key === 'skipPair') {
@@ -125,7 +125,7 @@ $(document).ready(() => {
     $('#main-skip-pair').select2();
 
     // Restore last states
-    Object.keys(lastStatesRef).map((key) => {
+    Object.keys(lastStatesRef).forEach((key) => {
       if (key === 'skipPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
@@ -528,14 +528,14 @@ $(document).ready(() => {
   socket.on('settingGet', ({ current, list }) => {
     // Render account list
     let accountList = '';
-    list.map((account) => {
+    list.forEach((account) => {
       accountList += `<option value="${account.name}">${account.name}</option>`;
     });
     $('#account-list').html(accountList);
     $('#account-list').val(current.name);
 
     // Filling current account form
-    Object.keys(current).map((prop) => {
+    Object.keys(current).forEach((prop) => {
       $(`#${prop}`).val(current[prop]);
     });
 
@@ -563,7 +563,7 @@ $(document).ready(() => {
   });
 
   socket.on('settingCurrentAccount', (current) => {
-    Object.keys(current).map((prop) => {
+    Object.keys(current).forEach((prop) => {
       $(`#${prop}`).val(current[prop]);
     });
   });
