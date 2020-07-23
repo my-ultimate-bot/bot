@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.9.51",
+  "version": "4.9.53",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.31.75",
+    "ccxt": "^1.31.85",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
