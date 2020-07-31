@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.10.0",
+  "version": "4.10.1",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
