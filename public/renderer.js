@@ -326,8 +326,10 @@ $(document).ready(() => {
   });
 
   // Active / Pending orders
+  let lastListOrderData = [];
   socket.on('listOrder', (data) => {
-    const filterData = _.uniqBy(data, 'id').filter(({ remaining }) => remaining > 0);
+    const filterData = data.filter(({ id, remaining }) => !_.some(lastListOrderData, { id }) && remaining > 0);
+    lastListOrderData = lastListOrderData.concat(filterData);
 
     const orderTable = filterData.reduce((totalOrderTable, {
       datetime = moment().valueOf(), id = '-', symbol = '-', amount = 0, price = 0, side = '-', remaining = 0, type = 'open',
