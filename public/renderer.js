@@ -6,7 +6,7 @@ Number.prototype.toFixedNumber = function (x, base) {
 };
 
 Number.prototype.noExponents = function () {
-  const data = String(this).split(/[eE]/);
+  const data = String(this).split(/[Ee]/);
   if (data.length === 1) return data[0];
   let z = ''; const sign = this < 0 ? '-' : '';
   const str = data[0].replace('.', '');
@@ -14,7 +14,7 @@ Number.prototype.noExponents = function () {
   if (mag < 0) {
     z = `${sign}0.`;
     while (mag++) z += '0';
-    return z + str.replace(/^\-/, '');
+    return z + str.replace(/^-/, '');
   }
   mag -= str.length;
   while (mag--) z += '0';
@@ -38,7 +38,7 @@ $.fn.toggleClick = function () {
       // That when called will apply the 'index'th method to that element
       // the index % count means that we constrain our iterator between 0
       // and (count-1)
-      return methods[toggleClickIndex++ % count].apply(this, arguments);
+      return Reflect.apply(methods[toggleClickIndex++ % count], this, arguments);
     });
   });
 };
@@ -198,18 +198,18 @@ $(document).ready(() => {
     // TODO: config this every time
     // const pair = selectedCoinMAIN;
     const marketPlace = $('#main-market-place').val();
-    const useFundPercentage = $('#main-amount-percentage').val() !== '' ? parseFloat($('#main-amount-percentage').val()) : 15;
+    const useFundPercentage = $('#main-amount-percentage').val() !== '' ? Number.parseFloat($('#main-amount-percentage').val()) : 15;
     const reinvestment = $('#main-reinvestment').is(':checked');
-    const takeProfitPct = $('#main-take-profit').val() !== '' ? parseFloat($('#main-take-profit').val()) : 1.5;
-    const stopLossPct = $('#main-stop-loss').val() !== '' ? parseFloat($('#main-stop-loss').val()) : 3;
+    const takeProfitPct = $('#main-take-profit').val() !== '' ? Number.parseFloat($('#main-take-profit').val()) : 1.5;
+    const stopLossPct = $('#main-stop-loss').val() !== '' ? Number.parseFloat($('#main-stop-loss').val()) : 3;
     const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
     const stableMarket = $('#main-stable-market').val();
     const useStableMarket = $('#main-use-stable-market').is(':checked');
-    const timeOrder = $('#main-time-order').val() !== '' ? parseFloat($('#main-time-order').val()) : 45;
+    const timeOrder = $('#main-time-order').val() !== '' ? Number.parseFloat($('#main-time-order').val()) : 45;
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
-    const maxOpenOrder = $('#main-max-open-order').val() !== '' ? parseFloat($('#main-max-open-order').val()) : 2;
+    const maxOpenOrder = $('#main-max-open-order').val() !== '' ? Number.parseFloat($('#main-max-open-order').val()) : 2;
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
@@ -301,6 +301,7 @@ $(document).ready(() => {
   // Order page
   // Loading active and history orders
   $('#orders').click(() => {
+    $('#list-orders').html('');
     socket.emit('fetchOrder');
     socket.emit('fetchAsset');
   });
@@ -324,18 +325,30 @@ $(document).ready(() => {
     $('#list-assets').html(assetTable);
   });
 
-  // Active orders
+  // Active / Pending orders
   socket.on('listOrder', (data) => {
-    $('#list-orders').html('');
-    const orderTable = data.reduce((totalOrderTable, {
-      datetime = moment().valueOf(), id = '-', symbol = '-', amount = '-', price = '-', side = '-', remaining = '-',
+    const filterData = _.uniqBy(data, 'id').filter(({ remaining }) => remaining > 0);
+
+    const orderTable = filterData.reduce((totalOrderTable, {
+      datetime = moment().valueOf(), id = '-', symbol = '-', amount = 0, price = 0, side = '-', remaining = 0, type = 'open',
     }) => {
-      const buyBtn = `<button type="button" rel="Market Buy" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-buy" data-remaining="${remaining}">
+      const buyBtn = `<button type="button" rel="Market Buy" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-buy" data-remaining="${remaining} data-type="${type}">
       Market Buy
     </button>`;
-      const sellBtn = `<button type="button" rel="Market Sell" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-sell" data-remaining="${remaining}">
+      const sellBtn = `<button type="button" rel="Market Sell" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-sell" data-remaining="${remaining} data-type="${type}">
       Market Sell
     </button>`;
+
+      const renderMarketAction = () => {
+        if (side === 'buy') {
+          if (type === 'pending') {
+            return sellBtn;
+          }
+          return buyBtn;
+        }
+        return sellBtn;
+      };
+
       return `${totalOrderTable}<tr>
       <td class="text-center">
         ${moment(datetime).format('YYYY-MM-DD HH:mm')}
@@ -353,24 +366,33 @@ $(document).ready(() => {
       ${side.toUpperCase()}
       </td>
       <td class="text-center">
-        ${side === 'buy' ? buyBtn : sellBtn}
-        <button type="button" rel="Cancel" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="cancel" data-remaining="0">
+        ${renderMarketAction()}
+        <button type="button" rel="Cancel" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="cancel" data-remaining="0" data-type="open">
           Cancel
         </button>
       </td>
     </tr>`;
     }, '');
-    $('#list-orders').html(orderTable);
-    $('.market-action').click(function () {
-      const symbol = $(this).data('symbol');
-      const orderId = $(this).data('id');
-      const action = $(this).data('action');
-      const remaining = $(this).data('remaining');
-      socket.emit('marketAction', {
-        symbol, orderId, action, remaining,
-      });
-    });
+    $('#list-orders').append(orderTable);
   });
+
+  $('body').on('click', '.market-action', function () {
+    const symbol = $(this).data('symbol');
+    const orderId = $(this).data('id');
+    const action = $(this).data('action');
+    const remaining = $(this).data('remaining');
+    const type = $(this).data('type');
+
+    socket.emit('marketAction', {
+      symbol, orderId, action, remaining, type,
+    });
+
+    $(this).closest('tr').remove();
+  });
+
+  // $('.market-action').click(function () {
+
+  // });
 
   // History orders
   socket.on('listHistoryOrder', (data) => {
@@ -478,7 +500,7 @@ $(document).ready(() => {
     if ($('#rate-buy').val() !== '') {
       socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
       socket.once('minAmount', (minAmount) => {
-        const currentAmount = parseFloat($('#amount-buy').val() === '' ? 0 : $('#amount-buy').val());
+        const currentAmount = Number.parseFloat($('#amount-buy').val() === '' ? 0 : $('#amount-buy').val());
         if (currentAmount <= minAmount) {
           $('#amount-buy').val(minAmount);
         }
@@ -503,7 +525,7 @@ $(document).ready(() => {
     if ($('#rate-sell').val() !== '') {
       socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
       socket.once('minAmount', (minAmount) => {
-        const currentAmount = parseFloat($('#amount-sell').val() === '' ? 0 : $('#amount-sell').val());
+        const currentAmount = Number.parseFloat($('#amount-sell').val() === '' ? 0 : $('#amount-sell').val());
         if (currentAmount <= minAmount) {
           $('#amount-sell').val(minAmount);
         }
