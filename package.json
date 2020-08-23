@@ -1,6 +1,6 @@
 {
   "name": "smart-crypto-al",
-  "version": "4.10.51",
+  "version": "4.10.52",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -17,10 +17,10 @@
   "dependencies": {
     "adm-zip": "^0.4.16",
     "auto-reload-json": "^1.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.33.19",
+    "ccxt": "^1.33.41",
     "coingecko-api": "^1.0.10",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -30,11 +30,11 @@
     "fs-extra": "^9.0.1",
     "get-port": "^5.1.1",
     "google-it": "^1.5.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "moment": "^2.27.0",
     "node-machine-id": "^1.1.12",
     "node-telegram-bot-api": "^0.50.0",
-    "npm": "^6.14.7",
+    "npm": "^6.14.8",
     "ora": "^5.0.0",
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.8",
@@ -47,6 +47,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^1.10.2"
+    "javascript-obfuscator": "^1.11.0"
   }
 }
