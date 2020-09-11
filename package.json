@@ -1,6 +1,6 @@
 {
   "name": "smart-crypto-al",
-  "version": "4.10.96",
+  "version": "4.10.97",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
