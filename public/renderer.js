@@ -71,7 +71,7 @@ $(document).ready(() => {
     reinvestment: $('#main-reinvestment'),
     takeProfitPct: $('#main-take-profit'),
     stopLossPct: $('#main-stop-loss'),
-    smartStopLoss: $('#main-smart-stop-loss'),
+    // smartStopLoss: $('#main-smart-stop-loss'),
     stableMarket: $('#main-stable-market'),
     useStableMarket: $('#main-use-stable-market'),
     timeOrder: $('#main-time-order'),
@@ -103,7 +103,7 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'smartStopLoss' || key === 'reinvestment' || key === 'useStableMarket') {
+      if (key === 'reinvestment' || key === 'useStableMarket') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
       } else if (key === 'skipPair') {
         lastStatesRef[key].select2();
@@ -202,7 +202,7 @@ $(document).ready(() => {
     const reinvestment = $('#main-reinvestment').is(':checked');
     const takeProfitPct = $('#main-take-profit').val() !== '' ? Number.parseFloat($('#main-take-profit').val()) : 1.5;
     const stopLossPct = $('#main-stop-loss').val() !== '' ? Number.parseFloat($('#main-stop-loss').val()) : 3;
-    const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
+    // const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
     const stableMarket = $('#main-stable-market').val();
     const useStableMarket = $('#main-use-stable-market').is(':checked');
     const timeOrder = $('#main-time-order').val() !== '' ? Number.parseFloat($('#main-time-order').val()) : 45;
@@ -213,7 +213,7 @@ $(document).ready(() => {
     const mode = $('#main-mode').val();
 
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, smartStopLoss, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, maxOpenOrder, mode,
+      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, maxOpenOrder, mode,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');
