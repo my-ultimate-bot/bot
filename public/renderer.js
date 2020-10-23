@@ -66,20 +66,30 @@ $(document).ready(() => {
 
   // Reload previous states
   const lastStatesRef = {
-    marketPlace: $('#main-market-place'),
-    useFundPercentage: $('#main-amount-percentage'),
+    // Global
     reinvestment: $('#main-reinvestment'),
-    takeProfitPct: $('#main-take-profit'),
-    stopLossPct: $('#main-stop-loss'),
-    // smartStopLoss: $('#main-smart-stop-loss'),
-    stableMarket: $('#main-stable-market'),
-    useStableMarket: $('#main-use-stable-market'),
     timeOrder: $('#main-time-order'),
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
     skipPair: $('#main-skip-pair'),
-    maxOpenOrder: $('#main-max-open-order'),
     mode: $('#main-mode'),
+
+    // Dip
+    useDipStrategy: $('#main-use-dip-strategy'),
+    dipMarketPlace: $('#main-dip-market-place'),
+    dipUseFundPercentage: $('#main-dip-amount-percentage'),
+    dipTakeProfitPercentage: $('#main-dip-take-profit-percentage'),
+    dipStopLossPercentage: $('#main-dip-stop-loss-percentage'),
+    dipStableMarket: $('#main-dip-stable-market'),
+    dipUseStableMarket: $('#main-dip-use-stable-market'),
+    dipMaxOpenOrder: $('#main-dip-max-open-order'),
+
+    // Spike
+    useSpikeStrategy: $('#main-use-spike-strategy'),
+    spikeUseFundPercentage: $('#main-spike-amount-percentage'),
+    spikeTakeProfitPercentage: $('#main-spike-take-profit-percentage'),
+    spikeFibonacciDCAPercentage: $('#main-spike-fibonacci-dca-percentage'),
+    spikeMaxOpenPosition: $('#main-spike-max-open-position'),
   };
 
   socket.on('isRunning', (isRunning) => {
@@ -103,7 +113,7 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'reinvestment' || key === 'useStableMarket') {
+      if (key === 'useDipStrategy' || key === 'reinvestment' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
       } else if (key === 'skipPair') {
         lastStatesRef[key].select2();
@@ -152,9 +162,9 @@ $(document).ready(() => {
 
   //   if (parse2InputOnce) {
   //     parse2InputOnce = false;
-  //     // Change default useFundPercentage and dispatch an event
-  //     $('#main-amount-percentage').val(15);
-  //     $('#main-amount-percentage').trigger('change');
+  //     // Change default dipUseFundPercentage and dispatch an event
+  //     $('#main-dip-amount-percentage').val(15);
+  //     $('#main-dip-amount-percentage').trigger('change');
   //   }
   // });
 
@@ -181,7 +191,7 @@ $(document).ready(() => {
   //   }, 5000);
   // });
 
-  // $('#main-amount-percentage').on('change', function () {
+  // $('#main-dip-amount-percentage').on('change', function () {
   //   const percentage = $(this).val() / 100;
   //   const re = /\w+$/;
   //   const [market] = selectedCoinMAIN.match(re);
@@ -197,23 +207,52 @@ $(document).ready(() => {
   $('#main-start').toggleClick(() => {
     // TODO: config this every time
     // const pair = selectedCoinMAIN;
-    const marketPlace = $('#main-market-place').val();
-    const useFundPercentage = $('#main-amount-percentage').val() !== '' ? Number.parseFloat($('#main-amount-percentage').val()) : 15;
+
+    // Global
     const reinvestment = $('#main-reinvestment').is(':checked');
-    const takeProfitPct = $('#main-take-profit').val() !== '' ? Number.parseFloat($('#main-take-profit').val()) : 1.5;
-    const stopLossPct = $('#main-stop-loss').val() !== '' ? Number.parseFloat($('#main-stop-loss').val()) : 3;
-    // const smartStopLoss = $('#main-smart-stop-loss').is(':checked');
-    const stableMarket = $('#main-stable-market').val();
-    const useStableMarket = $('#main-use-stable-market').is(':checked');
     const timeOrder = $('#main-time-order').val() !== '' ? Number.parseFloat($('#main-time-order').val()) : 45;
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
-    const maxOpenOrder = $('#main-max-open-order').val() !== '' ? Number.parseFloat($('#main-max-open-order').val()) : 2;
     const mode = $('#main-mode').val();
 
+    // Dip
+    const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
+    const dipMarketPlace = $('#main-dip-market-place').val();
+    const dipUseFundPercentage = $('#main-dip-amount-percentage').val() !== '' ? Number.parseFloat($('#main-dip-amount-percentage').val()) : 15;
+    const dipTakeProfitPercentage = $('#main-dip-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-dip-take-profit-percentage').val()) : 1.5;
+    const dipStopLossPercentage = $('#main-dip-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-dip-stop-loss-percentage').val()) : 3;
+    const dipStableMarket = $('#main-dip-stable-market').val();
+    const dipUseStableMarket = $('#main-dip-use-stable-market').is(':checked');
+    const dipMaxOpenOrder = $('#main-dip-max-open-order').val() !== '' ? Number.parseFloat($('#main-dip-max-open-order').val()) : 2;
+
+    // Spike
+    const useSpikeStrategy = $('#main-use-spike-strategy').is(':checked');
+    const spikeUseFundPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
+    const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 5;
+    const spikeFibonacciDCAPercentage = $('#main-spike-fibonacci-dca-percentage').val() !== '' ? Number.parseFloat($('#main-spike-fibonacci-dca-percentage').val()) : 10;
+    const spikeMaxOpenPosition = $('#main-spike-max-open-position').val() !== '' ? Number.parseFloat($('#main-spike-max-open-position').val()) : 1;
+
     socket.emit('main-start', {
-      marketPlace, useFundPercentage, reinvestment, takeProfitPct, stopLossPct, stableMarket, useStableMarket, timeOrder, timeFrame, tradingStrictness, skipPair, maxOpenOrder, mode,
+      timeOrder,
+      timeFrame,
+      tradingStrictness,
+      skipPair,
+      reinvestment,
+      mode,
+      useDipStrategy,
+      dipMarketPlace,
+      dipUseFundPercentage,
+      dipTakeProfitPercentage,
+      dipStopLossPercentage,
+      dipStableMarket,
+      dipUseStableMarket,
+      dipMaxOpenOrder,
+      useSpikeStrategy,
+      spikeUseFundPercentage,
+      spikeTakeProfitPercentage,
+      spikeFibonacciDCAPercentage,
+      spikeMaxOpenPosition,
     });
 
     $('#main-start').html('<i class="tim-icons icon-button-pause"></i>Stop');

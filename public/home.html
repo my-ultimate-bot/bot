@@ -92,35 +92,12 @@
                     <div class="row">
                       <div class="col-8 ml-auto mr-auto control">
                         <div class="card">
+                          <div class="card-header">
+                            <span>** Global setting **</span>
+                          </div>
                           <div class="card-body">
                             <form class="form-horizontal">
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="The market place you want to trade, eg: BTC, ETH, BNB, ...">Market
-                                  Place</label>
-                                <div class="col-md-9">
-                                  <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-market-place"
-                                      name="main-market-place">
-                                      <option value="BTC">BTC</option>
-                                      <option value="ETH">ETH</option>
-                                      <option value="BNB">BNB</option>
-                                      <option value="XRP">XRP</option>
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="eg: 15% means it will use 15% of your total funds. If you have 0.01 BTC in your account, you set 50%, so that means the bot will use 0.005 BTC per trade">Use
-                                  Fund %</label>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-amount-percentage"
-                                      name="main-amount-percentage">
-                                    </select>
-                                  </div>
-                                </div>
                                 <div class="col-md-3">
                                   <div class="form-check">
                                     <label class="form-check-label">
@@ -131,79 +108,6 @@
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top"
                                         title="Reinvest for the next order. Eg: you used 0.1 BTC to trade and gained to 0.1015 BTC. If this option is enabled, then it will use 0.1015 BTC for the next trade. If it is disabled, the bot will use 0.1 BTC instead">Reinvestment</span>
-                                    </label>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="% take profit, eg: The bot bought at rate 0.01, % take profit is 1.5%, it will place a selling order at rate 0.01015 (1.5%)">Take
-                                  Profit %</label>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <input type="number" class="form-control" name="main-take-profit"
-                                      id="main-take-profit" value="1.5" placeholder="% Take Profit">
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <span>%</span>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last trade < 0.0097, it will stop loss (-3%)">Stop
-                                  Loss %</label>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <input type="number" class="form-control" name="main-stop-loss" id="main-stop-loss"
-                                      value="3" placeholder="% Stop Loss">
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <span>%</span>
-                                </div>
-                                <!-- <div class="col-md-2">
-                                  <div class="form-check">
-                                    <label class="form-check-label">
-                                      <input class="form-check-input" type="checkbox"
-                                        name="main-smart-stop-loss" id="main-smart-stop-loss">
-                                      <span class="form-check-sign">
-                                        <span class="check"></span>
-                                      </span>
-                                      <span data-toggle="tooltip" data-placement="top"
-                                        title="Prevent from flash pump-n-dump. However, notice that when enabling this option, the bot won't trigger the stop-loss immediately when the LAST price < your stop los level. Instead, by taking additional calculation, it will wait for the coin to pump up. This could be good or bad depend on use case">Smart
-                                        Stop Loss</span>
-                                    </label>
-                                  </div>
-                                </div> -->
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="The stable market you want to trade, eg: USDT, USDC, TUSD">Stable
-                                  Market</label>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-stable-market"
-                                      name="main-stable-market">
-                                      <option value="USDT">USDT</option>
-                                      <option value="PAX">PAX</option>
-                                      <option value="TUSD">TUSD</option>
-                                      <option value="USDC">USDC</option>
-                                      <option value="USDS">USDS</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="form-check">
-                                    <label class="form-check-label">
-                                      <input class="form-check-input" type="checkbox" checked
-                                        name="main-use-stable-market" id="main-use-stable-market">
-                                      <span class="form-check-sign">
-                                        <span class="check"></span>
-                                      </span>
-                                      <span data-toggle="tooltip" data-placement="top"
-                                        title="Decide to use stable market or not, eg: If your account holds BTC and USDT, the bot will scan on both 2 markets too">Use
-                                        Stable Market</span>
                                     </label>
                                   </div>
                                 </div>
@@ -278,32 +182,242 @@
                                 </div>
                               </div>
                               <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="Define maximum open orders. The bot will wait until these orders to be filled. For your safety, I recommend set this to 2">Maximum open orders</label>
-                                <div class="col-md-6">
-                                  <div class="form-group">
-                                    <input type="number" class="form-control" name="main-max-open-order"
-                                      id="main-max-open-order" value="2" placeholder="Maximum open orders">
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <span>Open orders</span>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="If you chose 'Live' mode, the bot will auto buy / sell for you.
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top" title="If you chose 'Live' mode, the bot will auto buy / sell for you.
                                   If you choose 'Notification' mode, then the bot only sends you signals and it is up to you to buy the coin or not.
-                                  The last option is 'Alert', the bot will notify you whenever a coin is volatile, it doesn't buy/sell
                                   ">Mode</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-mode" name="main-mode">
                                       <option value="live">Live</option>
                                       <option value="notification">Notification</option>
-                                      <option value="alert">Alert</option>
                                     </select>
                                   </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-8 ml-auto mr-auto control">
+                        <div class="card">
+                          <div class="card-header">
+                            <span>** Dip Strategy **: All exchanges (Spot market), suitable to an uptrend / sideway market</span>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="main-reinvest" checked
+                                      id="main-use-dip-strategy">
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                    <span data-toggle="tooltip" data-placement="top" title="Use Dip strategy">Use Dip
+                                      strategy</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="The market place you want to trade, eg: BTC, ETH, BNB, ...">Market
+                                  Place</label>
+                                <div class="col-md-9">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-dip-market-place"
+                                      name="main-dip-market-place">
+                                      <option value="BTC">BTC</option>
+                                      <option value="ETH">ETH</option>
+                                      <option value="BNB">BNB</option>
+                                      <option value="XRP">XRP</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: 15% means it will use 15% of your total funds. If you have 0.01 BTC in your account, you set 50%, so that means the bot will use 0.005 BTC per trade">Use
+                                  Fund %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-dip-amount-percentage"
+                                      name="main-dip-amount-percentage">
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% take profit, eg: The bot bought at rate 0.01, % take profit is 1.5%, it will place a selling order at rate 0.01015 (1.5%)">Take
+                                  Profit %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-dip-take-profit-percentage"
+                                      id="main-dip-take-profit-percentage" value="1.5" placeholder="% Take Profit">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last trade < 0.0097, it will stop loss (-3%)">Stop
+                                  Loss %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-dip-stop-loss-percentage"
+                                      id="main-dip-stop-loss-percentage" value="3" placeholder="% Stop Loss">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                                <!-- <div class="col-md-2">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox"
+                                        name="main-smart-stop-loss" id="main-smart-stop-loss">
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                      <span data-toggle="tooltip" data-placement="top"
+                                        title="Prevent from flash pump-n-dump. However, notice that when enabling this option, the bot won't trigger the stop-loss immediately when the LAST price < your stop los level. Instead, by taking additional calculation, it will wait for the coin to pump up. This could be good or bad depend on use case">Smart
+                                        Stop Loss</span>
+                                    </label>
+                                  </div>
+                                </div> -->
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="The stable market you want to trade, eg: USDT, USDC, TUSD">Stable
+                                  Market</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-dip-stable-market"
+                                      name="main-dip-stable-market">
+                                      <option value="USDT">USDT</option>
+                                      <option value="PAX">PAX</option>
+                                      <option value="TUSD">TUSD</option>
+                                      <option value="USDC">USDC</option>
+                                      <option value="USDS">USDS</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" checked
+                                        name="main-dip-use-stable-market" id="main-dip-use-stable-market">
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                      <span data-toggle="tooltip" data-placement="top"
+                                        title="Decide to use stable market or not, eg: If your account holds BTC and USDT, the bot will scan on both 2 markets too">Use
+                                        Stable Market</span>
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Define maximum open orders. The bot will wait until these orders to be filled. For your safety, I recommend set this to 2">Maximum
+                                  open orders</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-dip-max-open-order"
+                                      id="main-dip-max-open-order" value="2" placeholder="Maximum open orders">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>Open orders</span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-8 ml-auto mr-auto control">
+                        <div class="card">
+                          <div class="card-header">
+                            <span>** Spike Strategy **: Binance Global (Future market - short only), suitable to a downtrend market (This strategy only uses 1X leverage). For more info, please read <a href="https://academy.binance.com/en/articles/the-ultimate-guide-to-trading-on-binance-futures">THIS</a>
+                              article</span>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="main-reinvest" checked
+                                      id="main-use-spike-strategy">
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                    <span data-toggle="tooltip" data-placement="top" title="Use Spike strategy">Use
+                                      Spike strategy</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: 5% means it will use 5% of your total funds. If you have 1000 USDT in your account, you set 5%, so that means the bot will use 50 USDT per trade. Due to safety (this strategy doesn't have stop loss), you can only set this up to 10%">Use
+                                  Fund %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-spike-amount-percentage"
+                                      name="main-spike-amount-percentage">
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% take profit, eg: The bot shorted at rate 0.01, % take profit is 5%, it will close the position at rate 0.0095 (5%)">Take
+                                  Profit %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-spike-take-profit-percentage"
+                                      id="main-spike-take-profit-percentage" value="5" placeholder="% Take Profit">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% Fibonacci DCA, eg: The bot shorted at rate = 0.01, with 5% DCA, it will place another order at rate = 0.0105, 0.011, 0.0115, 0.0125, etc...">Fibonacci
+                                  DCA %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-spike-fibonacci-dca-percentage"
+                                      id="main-spike-fibonacci-dca-percentage" value="10" placeholder="% Fibonacci DCA">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Define maximum open positions. The bot will wait until these positions to be filled. For your safety, I recommend set this to 1">Maximum
+                                  open positions</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-spike-max-open-position"
+                                      id="main-spike-max-open-position" value="1" placeholder="Maximum open positions">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>Open positions</span>
                                 </div>
                               </div>
                             </form>

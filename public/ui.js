@@ -125,20 +125,29 @@ $(document).ready(() => {
   for (let index = 1; index <= 100; index++) {
     percentage2Exec += `<option value="${index}">${index}%</option>`;
   }
-  $('#main-amount-percentage').html(percentage2Exec);
+  $('#main-dip-amount-percentage').html(percentage2Exec);
   $('#amount-buy-percentage').html(percentage2Exec);
   $('#amount-sell-percentage').html(percentage2Exec);
+
+  $('#main-dip-amount-percentage').val(15);
+  $('#main-dip-amount-percentage').trigger('change');
+
+  let spikePercentage2Exec = '';
+  for (let index = 1; index <= 10; index++) {
+    spikePercentage2Exec += `<option value="${index}">${index}%</option>`;
+  }
+
+  $('#main-spike-amount-percentage').html(spikePercentage2Exec);
+  $('#main-spike-amount-percentage').val(5);
+  $('#main-spike-amount-percentage').trigger('change');
   // Render amount to buy on main and manual
 
-  $('#main-amount-percentage').val(15);
-  $('#main-amount-percentage').trigger('change');
-
   // Stable Market Check
-  $('#main-use-stable-market').on('change', function () {
+  $('#main-dip-use-stable-market').on('change', function () {
     if ($(this).is(':checked')) {
-      $('#main-stable-market').prop('disabled', false);
+      $('#main-dip-stable-market').prop('disabled', false);
     } else {
-      $('#main-stable-market').prop('disabled', true);
+      $('#main-dip-stable-market').prop('disabled', true);
     }
   });
 
