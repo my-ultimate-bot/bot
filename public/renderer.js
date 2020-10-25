@@ -1,23 +1,25 @@
 const socket = io();
 
 Number.prototype.toFixedNumber = function (x, base) {
-  const pow = Math.pow(base || 10, x);
-  return +(Math.floor(this * pow) / pow);
+  const pow = (base || 10) ** x;
+  return Number(Math.floor(this * pow) / pow);
 };
 
 Number.prototype.noExponents = function () {
   const data = String(this).split(/[Ee]/);
-  if (data.length === 1) return data[0];
+
+  if (data.length === 1) { return data[0]; }
   let z = ''; const sign = this < 0 ? '-' : '';
   const str = data[0].replace('.', '');
   let mag = Number(data[1]) + 1;
+
   if (mag < 0) {
     z = `${sign}0.`;
-    while (mag++) z += '0';
+    while (mag++) { z += '0'; }
     return z + str.replace(/^-/, '');
   }
   mag -= str.length;
-  while (mag--) z += '0';
+  while (mag--) { z += '0'; }
   return str + z;
 };
 
@@ -26,8 +28,8 @@ let selectedCoin = 'ETH/BTC'; // TODO: Init pair
 let toggleClickIndex = 0;
 let lastStates = [];
 
-$.fn.toggleClick = function () {
-  const methods = arguments; // Store the passed arguments for future reference
+$.fn.toggleClick = function (...args) {
+  const methods = args; // Store the passed arguments for future reference
   const count = methods.length; // Cache the number of methods
 
   // Use return this to maintain jQuery chainability
@@ -38,7 +40,7 @@ $.fn.toggleClick = function () {
       // That when called will apply the 'index'th method to that element
       // the index % count means that we constrain our iterator between 0
       // and (count-1)
-      return Reflect.apply(methods[toggleClickIndex++ % count], this, arguments);
+      return Reflect.apply(methods[toggleClickIndex++ % count], this, args);
     });
   });
 };
@@ -385,8 +387,10 @@ $(document).ready(() => {
           if (type === 'pending') {
             return sellBtn;
           }
+
           return buyBtn;
         }
+
         return sellBtn;
       };
 
@@ -538,10 +542,12 @@ $(document).ready(() => {
 
   $('#buy-form').on('submit', function (event) {
     event.preventDefault();
+
     if ($('#rate-buy').val() !== '') {
       socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
       socket.once('minAmount', (minAmount) => {
         const currentAmount = Number.parseFloat($('#amount-buy').val() === '' ? 0 : $('#amount-buy').val());
+
         if (currentAmount <= minAmount) {
           $('#amount-buy').val(minAmount);
         }
@@ -563,10 +569,12 @@ $(document).ready(() => {
 
   $('#sell-form').on('submit', function (event) {
     event.preventDefault();
+
     if ($('#rate-sell').val() !== '') {
       socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
       socket.once('minAmount', (minAmount) => {
         const currentAmount = Number.parseFloat($('#amount-sell').val() === '' ? 0 : $('#amount-sell').val());
+
         if (currentAmount <= minAmount) {
           $('#amount-sell').val(minAmount);
         }
@@ -658,3 +666,4 @@ $(document).ready(() => {
     socket.emit('setting:post', $('#add-new-form').serializeArray());
   });
 });
+

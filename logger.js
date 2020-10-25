@@ -1,7 +1,10 @@
 const winston = require('winston');
 
 const {
-  timestamp, combine, json, errors,
+  timestamp,
+  combine,
+  json,
+  errors,
 } = winston.format;
 
 const logger = winston.createLogger({

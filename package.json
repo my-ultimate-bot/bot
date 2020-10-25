@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "4.11.12",
+  "version": "4.11.2",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -30,7 +30,6 @@
     "fs-extra": "^9.0.1",
     "get-port": "^5.1.1",
     "google-it": "^1.5.2",
-    "interpolate-range": "^2.1.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "node-machine-id": "^1.1.12",

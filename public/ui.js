@@ -38,19 +38,19 @@ $(document).ready(() => {
 
       const new_color = $(this).data('color');
 
-      if ($sidebar.length != 0) {
+      if ($sidebar.length > 0) {
         $sidebar.attr('data', new_color);
       }
 
-      if ($main_panel.length != 0) {
+      if ($main_panel.length > 0) {
         $main_panel.attr('data', new_color);
       }
 
-      if ($full_page.length != 0) {
+      if ($full_page.length > 0) {
         $full_page.attr('filter-color', new_color);
       }
 
-      if ($sidebar_responsive.length != 0) {
+      if ($sidebar_responsive.length > 0) {
         $sidebar_responsive.attr('data', new_color);
       }
     });
@@ -60,7 +60,7 @@ $(document).ready(() => {
       function () {
         const $btn = $(this);
 
-        if (sidebar_mini_active == true) {
+        if (sidebar_mini_active === true) {
           $('body').removeClass('sidebar-mini');
           sidebar_mini_active = false;
           blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
@@ -87,7 +87,7 @@ $(document).ready(() => {
       function () {
         const $btn = $(this);
 
-        if (white_color == true) {
+        if (white_color === true) {
           $('body').addClass('change-background');
           setTimeout(() => {
             $('body').removeClass('change-background');
@@ -175,3 +175,4 @@ $(document).ready(() => {
     },
   );
 });
+
