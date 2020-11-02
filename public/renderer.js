@@ -665,5 +665,8 @@ $(document).ready(() => {
     e.preventDefault();
     socket.emit('setting:post', $('#add-new-form').serializeArray());
   });
+
+  // Reload states
+  socket.emit('reloadState');
 });
 
