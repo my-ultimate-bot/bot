@@ -90,7 +90,8 @@ $(document).ready(() => {
     useSpikeStrategy: $('#main-use-spike-strategy'),
     spikeUseFundPercentage: $('#main-spike-amount-percentage'),
     spikeTakeProfitPercentage: $('#main-spike-take-profit-percentage'),
-    spikeFibonacciDCAPercentage: $('#main-spike-fibonacci-dca-percentage'),
+    spikeDCAPercentage: $('#main-spike-dca-percentage'),
+    spikeStopLossPercentage: $('#main-spike-stop-loss-percentage'),
     spikeMaxOpenPosition: $('#main-spike-max-open-position'),
   };
 
@@ -231,8 +232,9 @@ $(document).ready(() => {
     // Spike
     const useSpikeStrategy = $('#main-use-spike-strategy').is(':checked');
     const spikeUseFundPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
-    const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 5;
-    const spikeFibonacciDCAPercentage = $('#main-spike-fibonacci-dca-percentage').val() !== '' ? Number.parseFloat($('#main-spike-fibonacci-dca-percentage').val()) : 10;
+    const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 2.5;
+    const spikeDCAPercentage = $('#main-spike-dca-percentage').val() !== '' ? Number.parseFloat($('#main-spike-dca-percentage').val()) : 5;
+    const spikeStopLossPercentage = $('#main-spike-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-spike-stop-loss-percentage').val()) : 7;
     const spikeMaxOpenPosition = $('#main-spike-max-open-position').val() !== '' ? Number.parseFloat($('#main-spike-max-open-position').val()) : 1;
 
     socket.emit('main-start', {
@@ -253,7 +255,8 @@ $(document).ready(() => {
       useSpikeStrategy,
       spikeUseFundPercentage,
       spikeTakeProfitPercentage,
-      spikeFibonacciDCAPercentage,
+      spikeDCAPercentage,
+      spikeStopLossPercentage,
       spikeMaxOpenPosition,
     });
 

@@ -266,7 +266,7 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last trade < 0.0097, it will stop loss (-3%)">Stop
+                                  title="% stop loss, eg: The bot bought at rate 0.01, % stop loss is 3%, when the last price < 0.0097, it will stop loss">Stop
                                   Loss %</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
@@ -394,12 +394,25 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="% Fibonacci DCA, eg: The bot shorted at rate = 0.01, with 5% DCA, it will place another order at rate = 0.0105, 0.011, 0.0115, 0.0125, etc...">Fibonacci
-                                  DCA %</label>
+                                  title="% stop loss, eg: The bot shorted at rate 0.01, % DCA is 5%, when the last price > 0.0105, it will place another order to average your position. Currently it just DCA 1 time for safety">% DCA</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
-                                    <input type="number" class="form-control" name="main-spike-fibonacci-dca-percentage"
-                                      id="main-spike-fibonacci-dca-percentage" value="20" placeholder="% Fibonacci DCA">
+                                    <input type="number" class="form-control" name="main-spike-dca-percentage"
+                                      id="main-spike-dca-percentage" value="5" placeholder="% DCA">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="% stop loss, eg: The bot shorted at rate 0.01, % stop loss is 7%, when the last price higher than 7% of your position price, it will stop loss">Stop
+                                  Loss %</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-spike-stop-loss-percentage"
+                                      id="main-spike-stop-loss-percentage" value="7" placeholder="% Stop Loss">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
