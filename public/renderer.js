@@ -74,6 +74,7 @@ $(document).ready(() => {
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
     skipPair: $('#main-skip-pair'),
+    minimumVolume: $('#main-minimum-volume'),
     mode: $('#main-mode'),
 
     // Dip
@@ -217,6 +218,7 @@ $(document).ready(() => {
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipPair = $('#main-skip-pair').val();
+    const minimumVolume = $('#main-minimum-volume').val() !== '' ? Number.parseFloat($('#main-minimum-volume').val()) : 50000;
     const mode = $('#main-mode').val();
 
     // Dip
@@ -242,6 +244,7 @@ $(document).ready(() => {
       timeFrame,
       tradingStrictness,
       skipPair,
+      minimumVolume,
       reinvestment,
       mode,
       useDipStrategy,
