@@ -76,6 +76,7 @@ $(document).ready(() => {
     skipPair: $('#main-skip-pair'),
     minimumVolume: $('#main-minimum-volume'),
     mode: $('#main-mode'),
+    scanInterval: $('#main-scan-interval'),
 
     // Dip
     useDipStrategy: $('#main-use-dip-strategy'),
@@ -220,6 +221,7 @@ $(document).ready(() => {
     const skipPair = $('#main-skip-pair').val();
     const minimumVolume = $('#main-minimum-volume').val() !== '' ? Number.parseFloat($('#main-minimum-volume').val()) : 50000;
     const mode = $('#main-mode').val();
+    const scanInterval = $('#main-scan-interval').val() !== '' ? Number.parseFloat($('#main-scan-interval').val()) : 30;
 
     // Dip
     const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
@@ -247,6 +249,7 @@ $(document).ready(() => {
       minimumVolume,
       reinvestment,
       mode,
+      scanInterval,
       useDipStrategy,
       dipMarketPlace,
       dipUseFundPercentage,
