@@ -376,18 +376,14 @@ $(document).ready(() => {
   });
 
   // Active / Pending orders
-  let lastListOrderData = [];
   socket.on('listOrder', (data) => {
-    const filterData = data.filter(({ id, remaining }) => !_.some(lastListOrderData, { id }) && remaining > 0);
-    lastListOrderData = lastListOrderData.concat(filterData);
-
-    const orderTable = filterData.reduce((totalOrderTable, {
+    const orderTable = data.reduce((totalOrderTable, {
       datetime = moment().valueOf(), id = '-', symbol = '-', amount = 0, price = 0, side = '-', remaining = 0, type = 'open',
     }) => {
-      const buyBtn = `<button type="button" rel="Market Buy" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-buy" data-remaining="${remaining} data-type="${type}">
+      const buyBtn = `<button type="button" rel="Market Buy" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-buy" data-remaining="${remaining}" data-type="${type}">
       Market Buy
     </button>`;
-      const sellBtn = `<button type="button" rel="Market Sell" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-sell" data-remaining="${remaining} data-type="${type}">
+      const sellBtn = `<button type="button" rel="Market Sell" class="btn btn-danger btn-link btn-sm market-action" data-id="${id}" data-symbol="${symbol}" data-action="market-sell" data-remaining="${remaining}" data-type="${type}">
       Market Sell
     </button>`;
 
@@ -427,7 +423,7 @@ $(document).ready(() => {
       </td>
     </tr>`;
     }, '');
-    $('#list-orders').append(orderTable);
+    $('#list-orders').html(orderTable);
   });
 
   $('body').on('click', '.market-action', function () {
