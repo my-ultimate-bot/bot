@@ -81,6 +81,7 @@ $(document).ready(() => {
     // Dip
     useDipStrategy: $('#main-use-dip-strategy'),
     dipMarketPlace: $('#main-dip-market-place'),
+    dipUseMarket: $('#main-dip-use-market'),
     dipUseFundPercentage: $('#main-dip-amount-percentage'),
     dipTakeProfitPercentage: $('#main-dip-take-profit-percentage'),
     dipStopLossPercentage: $('#main-dip-stop-loss-percentage'),
@@ -118,7 +119,7 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'useDipStrategy' || key === 'reinvestment' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
+      if (key === 'useDipStrategy' || key === 'reinvestment' || key === 'dipUseMarket' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
       } else if (key === 'skipPair') {
         lastStatesRef[key].select2();
@@ -226,6 +227,7 @@ $(document).ready(() => {
     // Dip
     const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
     const dipMarketPlace = $('#main-dip-market-place').val();
+    const dipUseMarket = $('#main-dip-use-market').is(':checked');
     const dipUseFundPercentage = $('#main-dip-amount-percentage').val() !== '' ? Number.parseFloat($('#main-dip-amount-percentage').val()) : 15;
     const dipTakeProfitPercentage = $('#main-dip-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-dip-take-profit-percentage').val()) : 1.5;
     const dipStopLossPercentage = $('#main-dip-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-dip-stop-loss-percentage').val()) : 3;
@@ -252,6 +254,7 @@ $(document).ready(() => {
       scanInterval,
       useDipStrategy,
       dipMarketPlace,
+      dipUseMarket,
       dipUseFundPercentage,
       dipTakeProfitPercentage,
       dipStopLossPercentage,
