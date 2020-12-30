@@ -142,6 +142,15 @@ $(document).ready(() => {
   $('#main-spike-amount-percentage').trigger('change');
   // Render amount to buy on main and manual
 
+  // Stable Main Check
+  $('#main-dip-use-market').on('change', function () {
+    if ($(this).is(':checked')) {
+      $('#main-dip-market-place').prop('disabled', false);
+    } else {
+      $('#main-dip-market-place').prop('disabled', true);
+    }
+  });
+
   // Stable Market Check
   $('#main-dip-use-stable-market').on('change', function () {
     if ($(this).is(':checked')) {
