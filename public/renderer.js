@@ -78,11 +78,21 @@ $(document).ready(() => {
     mode: $('#main-mode'),
     scanInterval: $('#main-scan-interval'),
 
+    useMarketNeutralStrategy: $('#main-use-market-neutral-strategy'),
+    marketNeutralMaxOpenPosition: $('#main-market-neutral-max-open-position'),
+    marketNeutralAmountDollar: $('#main-market-neutral-amount-dollar'),
+    marketNeutralFundingFee: $('#main-market-neutral-funding-fee'),
+
+    useDcaStrategy: $('#main-use-dca-strategy'),
+    dcaAmountDollar: $('#main-dca-amount-dollar'),
+    dcaPeriod: $('#main-dca-period'),
+    dcaTradingPair: $('#main-dca-trading-pair'),
+
     // Dip
     useDipStrategy: $('#main-use-dip-strategy'),
     dipMarketPlace: $('#main-dip-market-place'),
     dipUseMarket: $('#main-dip-use-market'),
-    dipUseFundPercentage: $('#main-dip-amount-percentage'),
+    dipAmountPercentage: $('#main-dip-amount-percentage'),
     dipTakeProfitPercentage: $('#main-dip-take-profit-percentage'),
     dipStopLossPercentage: $('#main-dip-stop-loss-percentage'),
     dipStableMarket: $('#main-dip-stable-market'),
@@ -91,7 +101,7 @@ $(document).ready(() => {
 
     // Spike
     useSpikeStrategy: $('#main-use-spike-strategy'),
-    spikeUseFundPercentage: $('#main-spike-amount-percentage'),
+    spikeAmountPercentage: $('#main-spike-amount-percentage'),
     spikeTakeProfitPercentage: $('#main-spike-take-profit-percentage'),
     spikeDCAPercentage: $('#main-spike-dca-percentage'),
     spikeStopLossPercentage: $('#main-spike-stop-loss-percentage'),
@@ -119,9 +129,9 @@ $(document).ready(() => {
   socket.on('lastStates', (states) => {
     lastStates = states;
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'useDipStrategy' || key === 'reinvestment' || key === 'dipUseMarket' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
+      if (key === 'reinvestment' || key === 'useMarketNeutralStrategy' || key === 'useDcaStrategy' || key === 'useDipStrategy' || key === 'dipUseMarket' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
-      } else if (key === 'skipPair') {
+      } else if (key === 'skipPair' || key === 'dcaTradingPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
         lastStatesRef[key].trigger('change');
@@ -139,10 +149,12 @@ $(document).ready(() => {
     $('#pair').html(pair);
     $('#main-skip-pair').html(pair);
     $('#main-skip-pair').select2();
+    $('#main-dca-trading-pair').html(pair);
+    $('#main-dca-trading-pair').select2();
 
     // Restore last states
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'skipPair') {
+      if (key === 'skipPair' || key === 'dcaTradingPair') {
         lastStatesRef[key].select2();
         lastStatesRef[key].val(lastStates[key]);
         lastStatesRef[key].trigger('change');
@@ -157,6 +169,9 @@ $(document).ready(() => {
     // intervalMAIN = setInterval(() => {
     //   socket.emit('fetchInfoMain', selectedCoinMAIN);
     // }, 5000);
+
+    $('#main-dca-trading-pair').val(['BTC/USDT', 'ETH/USDT']);
+    $('#main-dca-trading-pair').trigger('change');
   });
 
   // Fetch main coin
@@ -168,7 +183,7 @@ $(document).ready(() => {
 
   //   if (parse2InputOnce) {
   //     parse2InputOnce = false;
-  //     // Change default dipUseFundPercentage and dispatch an event
+  //     // Change default dipAmountPercentage and dispatch an event
   //     $('#main-dip-amount-percentage').val(15);
   //     $('#main-dip-amount-percentage').trigger('change');
   //   }
@@ -224,11 +239,23 @@ $(document).ready(() => {
     const mode = $('#main-mode').val();
     const scanInterval = $('#main-scan-interval').val() !== '' ? Number.parseFloat($('#main-scan-interval').val()) : 30;
 
+    // Market-Neutral
+    const useMarketNeutralStrategy = $('#main-use-market-neutral-strategy').is(':checked');
+    const marketNeutralMaxOpenPosition = $('#main-market-neutral-max-open-position').val() !== '' ? Number.parseFloat($('#main-market-neutral-max-open-position').val()) : 1;
+    const marketNeutralAmountDollar = $('#main-market-neutral-amount-dollar').val() !== '' ? Number.parseFloat($('#main-market-neutral-amount-dollar').val()) : 20;
+    const marketNeutralFundingFee = $('#main-market-neutral-funding-fee').val() !== '' ? Number.parseFloat($('#main-market-neutral-funding-fee').val()) : 0.1;
+
+    // DCA
+    const useDcaStrategy = $('#main-use-dca-strategy').is(':checked');
+    const dcaAmountDollar = $('#main-dca-amount-dollar').val() !== '' ? Number.parseFloat($('#main-dca-amount-dollar').val()) : 25;
+    const dcaPeriod = $('#main-dca-period').val();
+    const dcaTradingPair = $('#main-dca-trading-pair').val();
+
     // Dip
     const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
     const dipMarketPlace = $('#main-dip-market-place').val();
     const dipUseMarket = $('#main-dip-use-market').is(':checked');
-    const dipUseFundPercentage = $('#main-dip-amount-percentage').val() !== '' ? Number.parseFloat($('#main-dip-amount-percentage').val()) : 15;
+    const dipAmountPercentage = $('#main-dip-amount-percentage').val() !== '' ? Number.parseFloat($('#main-dip-amount-percentage').val()) : 15;
     const dipTakeProfitPercentage = $('#main-dip-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-dip-take-profit-percentage').val()) : 1.5;
     const dipStopLossPercentage = $('#main-dip-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-dip-stop-loss-percentage').val()) : 3;
     const dipStableMarket = $('#main-dip-stable-market').val();
@@ -237,7 +264,7 @@ $(document).ready(() => {
 
     // Spike
     const useSpikeStrategy = $('#main-use-spike-strategy').is(':checked');
-    const spikeUseFundPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
+    const spikeAmountPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
     const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 2.5;
     const spikeDCAPercentage = $('#main-spike-dca-percentage').val() !== '' ? Number.parseFloat($('#main-spike-dca-percentage').val()) : 5;
     const spikeStopLossPercentage = $('#main-spike-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-spike-stop-loss-percentage').val()) : 7;
@@ -252,17 +279,25 @@ $(document).ready(() => {
       reinvestment,
       mode,
       scanInterval,
+      useMarketNeutralStrategy,
+      marketNeutralMaxOpenPosition,
+      marketNeutralAmountDollar,
+      marketNeutralFundingFee,
+      useDcaStrategy,
+      dcaAmountDollar,
+      dcaPeriod,
+      dcaTradingPair,
       useDipStrategy,
       dipMarketPlace,
       dipUseMarket,
-      dipUseFundPercentage,
+      dipAmountPercentage,
       dipTakeProfitPercentage,
       dipStopLossPercentage,
       dipStableMarket,
       dipUseStableMarket,
       dipMaxOpenOrder,
       useSpikeStrategy,
-      spikeUseFundPercentage,
+      spikeAmountPercentage,
       spikeTakeProfitPercentage,
       spikeDCAPercentage,
       spikeStopLossPercentage,

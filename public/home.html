@@ -134,14 +134,14 @@
                                   <div class="form-group">
                                     <select class="custom-select dark-background" id="main-time-frame"
                                       name="main-time-frame">
-                                      <option value="30m">30 minutes</option>
                                       <option value="1m">1 minute</option>
                                       <option value="3m">3 minute</option>
                                       <option value="5m">5 minutes</option>
                                       <option value="15m">15 minutes</option>
+                                      <option value="30m">30 minutes</option>
                                       <option value="1h">1 hour</option>
                                       <option value="2h">2 hours</option>
-                                      <option value="4h">4 hours</option>
+                                      <option value="4h" selected>4 hours</option>
                                       <option value="6h">6 hours</option>
                                       <option value="8h">8 hours</option>
                                       <option value="12h">12 hours</option>
@@ -231,12 +231,145 @@
                       <div class="col-8 ml-auto mr-auto control">
                         <div class="card">
                           <div class="card-header">
-                            <span>** Dip Strategy **: All exchanges (Spot market), suitable to an uptrend / sideway market</span>
+                            <span>** Market-Neutral Strategy **: Binance Global (Spot and Future market). Basically, you buy on spot market and short on future market at the same time to earn funding fee - need USDT to operate (you can check it <a href="https://www.binance.com/en/blog/421499824684900458/Exploring-MarketNeutral-Strategies-in-CryptoDerivatives-">HERE</a>) (Pretty safe, almost no risk)</span>
                             <div class="row">
                               <div class="col-md-3">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="main-use-dip-strategy" checked
+                                    <input class="form-check-input" type="checkbox" name="main-use-market-neutral-strategy" checked
+                                      id="main-use-market-neutral-strategy">
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                    <span data-toggle="tooltip" data-placement="top" title="Use Market-Neutral strategy">Use Market-Neutral
+                                      strategy</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Define maximum open positions. The bot will wait until these positions to be filled">Maximum
+                                  open positions</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-market-neutral-max-open-position"
+                                      id="main-market-neutral-max-open-position" value="2" placeholder="Maximum open positions">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>Open positions</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: You set $200, the bot will use $200 to buy the coin on spot market and use another $200 to short that coin">Use
+                                  Amount $</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-market-neutral-amount-dollar"
+                                      id="main-market-neutral-amount-dollar" value="20" placeholder="Amount $ to use per trade">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>USDT</span>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: The bot only opens the position if the funding fee is above this number (%)">Funding Fee Threshold</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-market-neutral-funding-fee"
+                                      id="main-market-neutral-funding-fee" value="0.1" placeholder="Funding Fee Threshold">
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <span>%</span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-8 ml-auto mr-auto control">
+                        <div class="card">
+                          <div class="card-header">
+                            <span>** DCA Strategy **: All exchanges (Spot market). In the long term: 2-5 years, this is the best strategy ever. Actually, there is some statistics about that, you can check it <a href="https://ofdollarsanddata.com/even-god-couldnt-beat-dollar-cost-averaging/">HERE</a> (Safe)</span>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="main-use-dca-strategy" checked
+                                      id="main-use-dca-strategy">
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                    <span data-toggle="tooltip" data-placement="top" title="Use Dip strategy">Use DCA
+                                      strategy</span>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <form class="form-horizontal">
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="eg: If you set it to $25 - 4h time frame - 1 week period, then the bot will buy $25 of the target coin every week when the price is below the lower Bollinger Bands">Use
+                                  Amount</label>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <input type="number" class="form-control" name="main-dca-amount-dollar"
+                                      id="main-dca-amount-dollar" value="25" placeholder="Amount to use per trade">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="Eg: 1 week means the bot will buy theses coins every week">Period between each DCA</label>
+                                <div class="col-md-9">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-dca-period"
+                                      name="main-dca-period">
+                                      <option value="86400000">1 day</option>
+                                      <option value="604800000" selected>1 week</option>
+                                      <option value="2592000000">1 month</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                  title="If you don't want the bot to trade on specific pairs, please list it in here">Trading Pairs</label>
+                                <div class="col-md-9">
+                                  <div class="form-group">
+                                    <select class="custom-select dark-background" id="main-dca-trading-pair"
+                                      name="main-dca-trading-pair" multiple>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-8 ml-auto mr-auto control">
+                        <div class="card">
+                          <div class="card-header">
+                            <span>** Dip Strategy **: All exchanges (Spot market), suitable to an uptrend / sideway market (Kinda risky)</span>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-check">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="main-use-dip-strategy"
                                       id="main-use-dip-strategy">
                                     <span class="form-check-sign">
                                       <span class="check"></span>
@@ -390,7 +523,7 @@
                         <div class="card">
                           <div class="card-header">
                             <span>** Spike Strategy **: Binance Global (Future market - Short only), suitable to a downtrend market (This strategy only uses 1X leverage). For more info, please read <a href="https://academy.binance.com/en/articles/the-ultimate-guide-to-trading-on-binance-futures">THIS</a>
-                              article. Note: When creating an API key, you need to enable "Future" option</span>
+                              article. Note: When creating an API key, you need to enable "Future" option (Very Risky)</span>
                             <div class="row">
                               <div class="col-md-3">
                                 <div class="form-check">
@@ -530,6 +663,14 @@
                           <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">Earned Funding Fee</h4>
+                    </div>
+                    <div class="card-body">
+                      <a class="btn btn-fill btn-primary" href="https://www.binance.com/en/my/orders/futures/transactionhistory">Check</a>
                     </div>
                   </div>
                   <div class="card">
