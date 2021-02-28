@@ -169,9 +169,6 @@ $(document).ready(() => {
     // intervalMAIN = setInterval(() => {
     //   socket.emit('fetchInfoMain', selectedCoinMAIN);
     // }, 5000);
-
-    $('#main-dca-trading-pair').val(['BTC/USDT', 'ETH/USDT']);
-    $('#main-dca-trading-pair').trigger('change');
   });
 
   // Fetch main coin
@@ -667,6 +664,7 @@ $(document).ready(() => {
       // Init skip pair
       setTimeout(() => {
         $('#main-skip-pair').select2();
+        $('#main-dca-trading-pair').select2();
       }, 500);
 
       focusMain = false;
