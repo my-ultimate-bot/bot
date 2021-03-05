@@ -131,10 +131,6 @@ $(document).ready(() => {
     Object.keys(lastStatesRef).forEach((key) => {
       if (key === 'reinvestment' || key === 'useMarketNeutralStrategy' || key === 'useDcaStrategy' || key === 'useDipStrategy' || key === 'dipUseMarket' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
-      } else if (key === 'skipPair' || key === 'dcaTradingPair') {
-        lastStatesRef[key].select2();
-        lastStatesRef[key].val(lastStates[key]);
-        lastStatesRef[key].trigger('change');
       } else {
         lastStatesRef[key].val(lastStates[key]);
       }
@@ -146,18 +142,20 @@ $(document).ready(() => {
   // let intervalMAIN;
   socket.emit('fetchMarket');
   socket.on('fetchMarket', (pair) => {
-    $('#pair').html(pair);
+    $('#pair').html(pair).select2({ width: '100%' });
     $('#main-skip-pair').html(pair);
-    $('#main-skip-pair').select2();
     $('#main-dca-trading-pair').html(pair);
-    $('#main-dca-trading-pair').select2();
 
     // Restore last states
     Object.keys(lastStatesRef).forEach((key) => {
       if (key === 'skipPair' || key === 'dcaTradingPair') {
-        lastStatesRef[key].select2();
-        lastStatesRef[key].val(lastStates[key]);
-        lastStatesRef[key].trigger('change');
+        if (lastStates[key]) {
+          lastStatesRef[key].select2({ width: '100%' }).val(lastStates[key]).trigger('change');
+        } else if (key === 'dcaTradingPair') {
+          lastStatesRef[key].select2({ width: '100%' }).val(['BTC/USDT', 'ETH/USDT']).trigger('change');
+        } else {
+          lastStatesRef[key].select2({ width: '100%' });
+        }
       }
     });
 
@@ -505,13 +503,6 @@ $(document).ready(() => {
       </td>
     </tr>`, '');
     $('#list-history-orders').html(orderHistoryTable);
-  });
-
-  // Manual page
-  $('#manual').click(() => {
-    setTimeout(() => {
-      $('#pair').select2();
-    }, 500);
   });
 
   $('#pair').on('change', function () {
