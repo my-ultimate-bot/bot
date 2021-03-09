@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "5.0.8",
+  "version": "5.0.9",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -15,12 +15,12 @@
   },
   "description": "Ultimate bot",
   "dependencies": {
-    "adm-zip": "^0.5.3",
+    "adm-zip": "^0.5.4",
     "auto-reload-json": "^1.0.2",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.42.66",
+    "ccxt": "^1.42.67",
     "coingecko-api": "^1.0.10",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
