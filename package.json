@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "5.0.16",
+  "version": "5.0.17",
   "main": "app.js",
   "license": "MIT",
   "scripts": {
@@ -20,7 +20,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.43.77",
+    "ccxt": "^1.44.2",
     "coingecko-api": "^1.0.10",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -39,7 +39,7 @@
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.9",
     "public-ip": "^4.0.3",
-    "qs": "^6.10.0",
+    "qs": "^6.10.1",
     "socket.io": "^4.0.0",
     "socket.io-client": "^4.0.0",
     "technicalindicators": "^3.1.0",
