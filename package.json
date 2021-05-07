@@ -1,8 +1,9 @@
 {
   "name": "ultimate-bot",
-  "version": "5.0.20",
+  "version": "5.0.21",
   "main": "app.js",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": true,
   "scripts": {
     "start": "node app.js",
     "build": "node build.js"
