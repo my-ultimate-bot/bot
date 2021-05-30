@@ -126,21 +126,16 @@ $(document).ready(() => {
     percentage2Exec += `<option value="${index}">${index}%</option>`;
   }
   $('#main-dip-amount-percentage').html(percentage2Exec);
+  $('#main-spike-amount-percentage').html(percentage2Exec);
   $('#amount-buy-percentage').html(percentage2Exec);
   $('#amount-sell-percentage').html(percentage2Exec);
 
+  // Render amount to buy on main and manual
   $('#main-dip-amount-percentage').val(15);
   $('#main-dip-amount-percentage').trigger('change');
-
-  let spikePercentage2Exec = '';
-  for (let index = 1; index <= 10; index++) {
-    spikePercentage2Exec += `<option value="${index}">${index}%</option>`;
-  }
-
-  $('#main-spike-amount-percentage').html(spikePercentage2Exec);
   $('#main-spike-amount-percentage').val(5);
   $('#main-spike-amount-percentage').trigger('change');
-  // Render amount to buy on main and manual
+
 
   // Stable Main Check
   $('#main-dip-use-market').on('change', function () {
