@@ -1,7 +1,7 @@
 $(document).ready(() => {
   $().ready(() => {
     $('#official-website').attr('href', 'https://myultimatebot.com');
-    // $('#fiverr').attr('href', 'https://www.fiverr.com/onfqzmpgvr/provide-my-cryptocurrency-trading-bot');
+    $('#fiverr').attr('href', 'https://www.fiverr.com/onfqzmpgvr/provide-my-cryptocurrency-trading-bot-1318');
     $('#telegram').attr('href', 'https://t.me/end_lesslove2012');
 
     $sidebar = $('.sidebar');
@@ -127,15 +127,12 @@ $(document).ready(() => {
   }
   $('#main-dip-amount-percentage').html(percentage2Exec);
   $('#main-spike-amount-percentage').html(percentage2Exec);
-  $('#amount-buy-percentage').html(percentage2Exec);
-  $('#amount-sell-percentage').html(percentage2Exec);
 
   // Render amount to buy on main and manual
   $('#main-dip-amount-percentage').val(15);
   $('#main-dip-amount-percentage').trigger('change');
   $('#main-spike-amount-percentage').val(5);
   $('#main-spike-amount-percentage').trigger('change');
-
 
   // Stable Main Check
   $('#main-dip-use-market').on('change', function () {
@@ -161,7 +158,7 @@ $(document).ready(() => {
     {
       width: 980,
       height: 610,
-      symbol: `${$('#exchangeID').val().toUpperCase()}:ETHBTC`,
+      symbol: `${$('#exchangeID').val().toUpperCase()}:BTCUSDT`,
       interval: '30',
       timezone: 'Etc/UTC',
       theme: 'dark',

@@ -24,7 +24,7 @@ Number.prototype.noExponents = function () {
   return str + z;
 };
 
-let selectedCoin = 'ETH/BTC'; // TODO: Init symbol
+let selectedCoin = 'BTC/USDT'; // TODO: Init symbol
 // let selectedCoinMAIN = 'ETH/BTC';
 let toggleClickIndex = 0;
 let lastStates = [];
