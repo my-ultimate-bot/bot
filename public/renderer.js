@@ -18,12 +18,13 @@ Number.prototype.noExponents = function () {
     while (mag++) { z += '0'; }
     return z + str.replace(/^-/, '');
   }
+
   mag -= str.length;
   while (mag--) { z += '0'; }
   return str + z;
 };
 
-let selectedCoin = 'ETH/BTC'; // TODO: Init pair
+let selectedCoin = 'ETH/BTC'; // TODO: Init symbol
 // let selectedCoinMAIN = 'ETH/BTC';
 let toggleClickIndex = 0;
 let lastStates = [];
@@ -73,7 +74,7 @@ $(document).ready(() => {
     timeOrder: $('#main-time-order'),
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
-    skipPair: $('#main-skip-pair'),
+    skipSymbol: $('#main-skip-symbol'),
     minimumVolume: $('#main-minimum-volume'),
     mode: $('#main-mode'),
     scanInterval: $('#main-scan-interval'),
@@ -86,7 +87,7 @@ $(document).ready(() => {
     useDcaStrategy: $('#main-use-dca-strategy'),
     dcaAmountDollar: $('#main-dca-amount-dollar'),
     dcaPeriod: $('#main-dca-period'),
-    dcaTradingPair: $('#main-dca-trading-pair'),
+    dcaTradingSymbol: $('#main-dca-trading-symbol'),
 
     // Dip
     useDipStrategy: $('#main-use-dip-strategy'),
@@ -141,17 +142,17 @@ $(document).ready(() => {
   // Fetch Market
   // let intervalMAIN;
   socket.emit('fetchMarket');
-  socket.on('fetchMarket', (pair) => {
-    $('#pair').html(pair).select2({ width: '100%' });
-    $('#main-skip-pair').html(pair);
-    $('#main-dca-trading-pair').html(pair);
+  socket.on('fetchMarket', (symbol) => {
+    $('#manual-symbol').html(symbol).select2({ width: '100%' });
+    $('#main-skip-symbol').html(symbol).select2({ width: '100%' });
+    $('#main-dca-trading-symbol').html(symbol).select2({ width: '100%' });
 
     // Restore last states
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'skipPair' || key === 'dcaTradingPair') {
+      if (key === 'skipSymbol' || key === 'dcaTradingSymbol') {
         if (lastStates[key]) {
           lastStatesRef[key].select2({ width: '100%' }).val(lastStates[key]).trigger('change');
-        } else if (key === 'dcaTradingPair') {
+        } else if (key === 'dcaTradingSymbol') {
           lastStatesRef[key].select2({ width: '100%' }).val(['BTC/USDT', 'ETH/USDT']).trigger('change');
         } else {
           lastStatesRef[key].select2({ width: '100%' });
@@ -159,11 +160,11 @@ $(document).ready(() => {
       }
     });
 
-    // $('#main-pair').html(pair);
-    selectedCoin = $('#pair').val();
-    // selectedCoinMAIN = $('#main-pair').val();
+    // $('#main-symbol').html(symbol);
+    selectedCoin = $('#manual-symbol').val();
+    // selectedCoinMAIN = $('#main-symbol').val();
     // socket.emit('fetchInfoMain', selectedCoinMAIN);
-    socket.emit('fetchInfoPair', selectedCoin);
+    socket.emit('fetchInfoSymbol', selectedCoin);
     // intervalMAIN = setInterval(() => {
     //   socket.emit('fetchInfoMain', selectedCoinMAIN);
     // }, 5000);
@@ -193,11 +194,11 @@ $(document).ready(() => {
 
   // $('#main').click(() => {
   //   setTimeout(() => {
-  //     $('#main-pair').select2();
+  //     $('#main-symbol').select2();
   //   }, 500);
   // });
 
-  // $('#main-pair').on('change', function () {
+  // $('#main-symbol').on('change', function () {
   //   selectedCoinMAIN = $(this).val();
   //   $('#main-amount').val('');
   //   socket.emit('fetchInfoMain', selectedCoinMAIN);
@@ -211,8 +212,8 @@ $(document).ready(() => {
   //   const percentage = $(this).val() / 100;
   //   const re = /\w+$/;
   //   const [market] = selectedCoinMAIN.match(re);
-  //   const pair = selectedCoinMAIN;
-  //   socket.emit('amount', { market, pair, percentage });
+  //   const symbol = selectedCoinMAIN;
+  //   socket.emit('amount', { market, symbol, percentage });
   //   socket.on('amount', (data) => {
   //     $('#main-amount').val(data);
   //     socket.removeAllListeners('amount');
@@ -222,14 +223,14 @@ $(document).ready(() => {
   // Main start
   $('#main-start').toggleClick(() => {
     // TODO: config this every time
-    // const pair = selectedCoinMAIN;
+    // const symbol = selectedCoinMAIN;
 
     // Global
     const reinvestment = $('#main-reinvestment').is(':checked');
     const timeOrder = $('#main-time-order').val() !== '' ? Number.parseFloat($('#main-time-order').val()) : 45;
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
-    const skipPair = $('#main-skip-pair').val();
+    const skipSymbol = $('#main-skip-symbol').val();
     const minimumVolume = $('#main-minimum-volume').val() !== '' ? Number.parseFloat($('#main-minimum-volume').val()) : 50000;
     const mode = $('#main-mode').val();
     const scanInterval = $('#main-scan-interval').val() !== '' ? Number.parseFloat($('#main-scan-interval').val()) : 30;
@@ -244,7 +245,7 @@ $(document).ready(() => {
     const useDcaStrategy = $('#main-use-dca-strategy').is(':checked');
     const dcaAmountDollar = $('#main-dca-amount-dollar').val() !== '' ? Number.parseFloat($('#main-dca-amount-dollar').val()) : 25;
     const dcaPeriod = $('#main-dca-period').val();
-    const dcaTradingPair = $('#main-dca-trading-pair').val();
+    const dcaTradingSymbol = $('#main-dca-trading-symbol').val();
 
     // Dip
     const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
@@ -269,7 +270,7 @@ $(document).ready(() => {
       timeOrder,
       timeFrame,
       tradingStrictness,
-      skipPair,
+      skipSymbol,
       minimumVolume,
       reinvestment,
       mode,
@@ -281,7 +282,7 @@ $(document).ready(() => {
       useDcaStrategy,
       dcaAmountDollar,
       dcaPeriod,
-      dcaTradingPair,
+      dcaTradingSymbol,
       useDipStrategy,
       dipMarketPlace,
       dipUseMarket,
@@ -505,8 +506,8 @@ $(document).ready(() => {
     $('#list-history-orders').html(orderHistoryTable);
   });
 
-  $('#pair').on('change', function () {
-    selectedCoin = $(this).val();
+  $('#manual-symbol').on('change', () => {
+    selectedCoin = $('#manual-symbol').val();
     // eslint-disable-next-line no-new
     new TradingView.widget(
       {
@@ -529,100 +530,39 @@ $(document).ready(() => {
         container_id: 'trading-view-chart',
       },
     );
-    $('#rate-buy').val('');
-    $('#rate-sell').val('');
-    $('#amount-buy').val('');
-    $('#amount-sell').val('');
   });
 
-  // Get rate
-  socket.on('fetchInfoPair', ({ bid, ask, last }) => {
-    const rateBuyType = $('#rate-buy-type').val();
-    const rateSellType = $('#rate-sell-type').val();
-    $('#rate-buy').val(eval(rateBuyType));
-    $('#rate-sell').val(eval(rateSellType));
-  });
+  $('#manual-execute').click(() => {
+    // Global
+    const symbol = $('#manual-symbol').val();
+    const entryPrice = $('#manual-entry-price').val() !== '' ? Number.parseFloat($('#manual-entry-price').val()) : 0;
+    const entryPriceType = $('#manual-entry-price-type').val();
+    const amount = $('#manual-amount').val() !== '' ? Number.parseFloat($('#manual-amount').val()) : 5;
+    const amountType = $('#manual-amount-type').val();
+    const takeProfitPercentage = $('#manual-take-profit-percentage').val() !== '' ? Number.parseFloat($('#manual-take-profit-percentage').val()) : 10;
+    const stopLossPercentage = $('#manual-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#manual-stop-loss-percentage').val()) : 5;
 
-  $('.rate-type').on('change', () => socket.emit('fetchInfoPair', selectedCoin));
-  // Get rate
+    $('#manual-execute').text('Loading...').attr('disabled', 'disabled');
 
-  $('#amount-buy-percentage').on('change', () => {
-    const re = /\w+$/;
-    const [market] = selectedCoin.match(re);
-    socket.emit('balance', market);
-    socket.on('balance', (balance) => {
-      const percentage = $('#amount-buy-percentage').val() / 100;
-      const rateBuy = $('#rate-buy').val();
-      const amount = (balance / rateBuy) * percentage;
-      $('#amount-buy').val(amount);
-      socket.removeAllListeners('balance');
+    socket.emit('manualExecute', {
+      symbol,
+      entryPrice,
+      entryPriceType,
+      amount,
+      amountType,
+      takeProfitPercentage,
+      stopLossPercentage,
     });
-  });
 
-  $('#amount-sell-percentage').on('change', () => {
-    const re = /^\w+/;
-    const [market] = selectedCoin.match(re);
-    socket.emit('balance', market);
-    socket.on('balance', (balance) => {
-      const percentage = $('#amount-sell-percentage').val() / 100;
-      const amount = balance * percentage;
-      $('#amount-sell').val(amount);
-      socket.removeAllListeners('balance');
+    socket.once('manualExecute', (msg) => {
+      $('#manual-execute').text('Execute').attr('disabled', false);
+
+      if (msg === 'successful') {
+        $('#manual-execute-text').show().text('Order placed!');
+      } else {
+        $('#manual-execute-text').show().text('Can\'t buy the order');
+      }
     });
-  });
-
-  $('#buy-form').on('submit', function (event) {
-    event.preventDefault();
-
-    if ($('#rate-buy').val() !== '') {
-      socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
-      socket.once('minAmount', (minAmount) => {
-        const currentAmount = Number.parseFloat($('#amount-buy').val() === '' ? 0 : $('#amount-buy').val());
-
-        if (currentAmount <= minAmount) {
-          $('#amount-buy').val(minAmount);
-        }
-        socket.emit('manualBuy', [selectedCoin, ...$(this).serializeArray()]);
-        $('#manual-buy-btn').text('Loading...').attr('disabled', 'disabled');
-        $('#buy-text').hide();
-        socket.once('manualBuy', (msg) => {
-          $('#manual-buy-btn').text('Buy').attr('disabled', false);
-
-          if (msg === 'successful') {
-            $('#buy-text').show().text('Buy order placed!');
-          } else {
-            $('#buy-text').show().text('Can\'t buy the order');
-          }
-        });
-      });
-    }
-  });
-
-  $('#sell-form').on('submit', function (event) {
-    event.preventDefault();
-
-    if ($('#rate-sell').val() !== '') {
-      socket.emit('minAmount', [selectedCoin, ...$(this).serializeArray()]);
-      socket.once('minAmount', (minAmount) => {
-        const currentAmount = Number.parseFloat($('#amount-sell').val() === '' ? 0 : $('#amount-sell').val());
-
-        if (currentAmount <= minAmount) {
-          $('#amount-sell').val(minAmount);
-        }
-        socket.emit('manualSell', [selectedCoin, ...$(this).serializeArray()]);
-        $('#manual-sell-btn').text('Loading...').attr('disabled', 'disabled');
-        $('#sell-text').hide();
-        socket.once('manualSell', (msg) => {
-          $('#manual-sell-btn').text('Sell').attr('disabled', false);
-
-          if (msg === 'successful') {
-            $('#sell-text').show().text('Sell order placed!');
-          } else {
-            $('#sell-text').show().text('Can\'t sell the order');
-          }
-        });
-      });
-    }
   });
 
   // Setting page
@@ -651,13 +591,6 @@ $(document).ready(() => {
       $('#manual').prop('disabled', true);
     } else if (focusMain) { // Click main section on first init
       $('#main').click();
-
-      // Init skip pair
-      setTimeout(() => {
-        $('#main-skip-pair').select2();
-        $('#main-dca-trading-pair').select2();
-      }, 500);
-
       focusMain = false;
     }
   });

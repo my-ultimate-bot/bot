@@ -62,7 +62,7 @@
                     <!-- <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <select class="custom-select dark-background" id="main-pair" name="main-pair">
+                          <select class="custom-select dark-background" id="main-symbol" name="main-symbol">
                           </select>
                         </div>
                       </div>
@@ -171,12 +171,12 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="If you don't want the bot to trade on specific pairs, please list it in here">Skip
-                                  Pairs</label>
+                                  title="If you don't want the bot to trade on specific symbols, please list it in here">Skip
+                                  Symbols</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-skip-pair"
-                                      name="main-skip-pair" multiple>
+                                    <select class="custom-select dark-background" id="main-skip-symbol"
+                                      name="main-skip-symbol" multiple>
                                     </select>
                                   </div>
                                 </div>
@@ -346,11 +346,11 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="Eg: If you set: BTC/USDT, ETH/USDT and 1-week period then the bot will buy BTC, ETH once a week">Trading Pairs</label>
+                                  title="Eg: If you set: BTC/USDT, ETH/USDT and 1-week period then the bot will buy BTC, ETH once a week">Trading Symbols</label>
                                 <div class="col-md-9">
                                   <div class="form-group">
-                                    <select class="custom-select dark-background" id="main-dca-trading-pair"
-                                      name="main-dca-trading-pair" multiple>
+                                    <select class="custom-select dark-background" id="main-dca-trading-symbol"
+                                      name="main-dca-trading-symbol" multiple>
                                       <option value="BTC/USDT">BTC/USDT</option>
                                       <option value="ETH/USDT">ETH/USDT</option>
                                     </select>
@@ -688,7 +688,7 @@
                                 Date Time
                               </th>
                               <th class="text-center">
-                                Pair
+                                Symbol
                               </th>
                               <th class="text-center">
                                 Quantity
@@ -729,7 +729,7 @@
                                 Date Time
                               </th>
                               <th class="text-center">
-                                Pair
+                                Symbol
                               </th>
                               <th class="text-center">
                                 Quantity
@@ -759,7 +759,6 @@
                   </div>
                 </div>
                 <div class="tab-pane" id="link13">
-                  <!-- TradingView Widget BEGIN -->
                   <div class="trading-view-widget-container">
                     <div id="trading-view-chart"></div>
                   </div>
@@ -772,87 +771,93 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <select class="custom-select dark-background" id="pair" name="pair">
+                            <select class="custom-select dark-background" id="manual-symbol" name="manual-symbol">
                             </select>
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                           <div class="card">
                             <div class="card-header">
-                              <h4 class="card-title">Buy</h4>
+                              <h4 class="card-title">Buy / Sell</h4>
                             </div>
                             <div class="card-body">
-                              <form id="buy-form">
-                                <label>Rate</label>
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="rate-buy" name="rate-buy">
+                              <form class="form-horizontal" id="buy-form">
+                                <div class="row">
+                                  <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                    title="Price you want to buy">Entry Price</label>
+                                  <div class="col-md-7">
+                                    <div class="form-group">
+                                      <input type="number" class="form-control" name="manual-entry-price"
+                                        id="manual-entry-price" value="0" placeholder="Price you want to buy">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <div class="form-group">
+                                      <select class="custom-select dark-background rate-type" id="manual-entry-price-type"
+                                        name="manual-entry-price-type">
+                                        <option value="limit">Limit</option>
+                                        <option value="market" selected>Market</option>
+                                      </select>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div class="form-group">
-                                  <select class="custom-select dark-background rate-type" id="rate-buy-type"
-                                    name="rate-buy-type">
-                                    <option value="last">Last</option>
-                                    <option value="bid">Bid</option>
-                                    <option value="ask">Ask</option>
-                                  </select>
+
+                                <div class="row">
+                                  <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                    title="Amount to buy">Amount</label>
+                                  <div class="col-md-7">
+                                    <div class="form-group">
+                                      <input type="number" class="form-control" name="manual-amount" id="manual-amount"
+                                        value="5" placeholder="Amount to buy">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-2">
+                                    <div class="form-group">
+                                      <select class="custom-select dark-background rate-type" id="manual-amount-type"
+                                        name="manual-price-type">
+                                        <option value="coin">Coin</option>
+                                        <option value="percentage" selected>Percentage</option>
+                                      </select>
+                                    </div>
+                                  </div>
                                 </div>
-                                <label>Amount</label>
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="amount-buy" name="amount-buy">
+
+                                <div class="row">
+                                  <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                    title="% Take Profit">% Take Profit</label>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <input type="number" class="form-control" name="manual-take-profit-percentage"
+                                        id="manual-take-profit-percentage" value="10" placeholder="% Take Profit">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <span>%</span>
+                                  </div>
                                 </div>
-                                <div class="form-group">
-                                  <select class="custom-select dark-background" id="amount-buy-percentage"
-                                    name="amount-buy-percentage">
-                                    <option value="25">25%</option>
-                                    <option value="50">50%</option>
-                                    <option value="75">75%</option>
-                                    <option value="100">100%</option>
-                                  </select>
+
+                                <div class="row">
+                                  <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
+                                    title="% Stop Loss">% Stop Loss</label>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <input type="number" class="form-control" name="manual-stop-loss-percentage"
+                                        id="manual-stop-loss-percentage" value="5" placeholder="% Stop Loss">
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <span>%</span>
+                                  </div>
                                 </div>
-                                <button type="submit" class="btn btn-fill btn-primary" id="manual-buy-btn">Buy</button>
-                                <p class="text-success" id="buy-text" style="display: none;">
-                                  Buy order placed!</p>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="card">
-                            <div class="card-header">
-                              <h4 class="card-title">Sell</h4>
-                            </div>
-                            <div class="card-body">
-                              <form id="sell-form">
-                                <label>Rate</label>
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="rate-sell" name="rate-sell">
+                                <div class="row flex-center">
+                                  <button class="btn btn-primary btn-lg" id="manual-execute">
+                                    <i class="tim-icons icon-triangle-right-17"></i>
+                                    Execute</button>
                                 </div>
-                                <div class="form-group">
-                                  <select class="custom-select dark-background rate-type" id="rate-sell-type"
-                                    name="rate-sell-type">
-                                    <option value="last">Last</option>
-                                    <option value="bid">Bid</option>
-                                    <option value="ask">Ask</option>
-                                  </select>
-                                </div>
-                                <label>Amount</label>
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="amount-sell" name="amount-sell">
-                                </div>
-                                <div class="form-group">
-                                  <select class="custom-select dark-background" id="amount-sell-percentage"
-                                    name="amount-sell-percentage">
-                                    <option value="25">25%</option>
-                                    <option value="50">50%</option>
-                                    <option value="75">75%</option>
-                                    <option value="100">100%</option>
-                                  </select>
-                                </div>
-                                <button type="submit" class="btn btn-fill btn-primary"
-                                  id="manual-sell-btn">Sell</button>
-                                <p class="text-success" id="sell-text" style="display: none;">
-                                  Sell order placed!</p>
+                                <p class="text-success" id="manual-execute-text" style="display: none;">
+                                  Order placed!</p>
                               </form>
                             </div>
                           </div>
