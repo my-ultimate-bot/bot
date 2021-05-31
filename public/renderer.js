@@ -160,66 +160,13 @@ $(document).ready(() => {
       }
     });
 
-    // $('#main-symbol').html(symbol);
     selectedCoin = $('#manual-symbol').val();
-    // selectedCoinMAIN = $('#main-symbol').val();
-    // socket.emit('fetchInfoMain', selectedCoinMAIN);
-    socket.emit('fetchInfoSymbol', selectedCoin);
-    // intervalMAIN = setInterval(() => {
-    //   socket.emit('fetchInfoMain', selectedCoinMAIN);
-    // }, 5000);
   });
-
-  // Fetch main coin
-  // let parse2InputOnce = true;
-  // socket.on('fetchInfoMain', ({ bid, ask, percentage }) => {
-  //   $('#main-signal-bid').text(bid);
-  //   $('#main-signal-ask').text(ask);
-  //   $('#main-signal-change').text(percentage);
-
-  //   if (parse2InputOnce) {
-  //     parse2InputOnce = false;
-  //     // Change default dipAmountPercentage and dispatch an event
-  //     $('#main-dip-amount-percentage').val(15);
-  //     $('#main-dip-amount-percentage').trigger('change');
-  //   }
-  // });
-
   let focusMain = true;
 
   // End Init
 
   // MAIN Page
-  // Calc amount to buy
-
-  // $('#main').click(() => {
-  //   setTimeout(() => {
-  //     $('#main-symbol').select2();
-  //   }, 500);
-  // });
-
-  // $('#main-symbol').on('change', function () {
-  //   selectedCoinMAIN = $(this).val();
-  //   $('#main-amount').val('');
-  //   socket.emit('fetchInfoMain', selectedCoinMAIN);
-  //   clearInterval(intervalMAIN);
-  //   intervalMAIN = setInterval(() => {
-  //     socket.emit('fetchInfoMain', selectedCoinMAIN);
-  //   }, 5000);
-  // });
-
-  // $('#main-dip-amount-percentage').on('change', function () {
-  //   const percentage = $(this).val() / 100;
-  //   const re = /\w+$/;
-  //   const [market] = selectedCoinMAIN.match(re);
-  //   const symbol = selectedCoinMAIN;
-  //   socket.emit('amount', { market, symbol, percentage });
-  //   socket.on('amount', (data) => {
-  //     $('#main-amount').val(data);
-  //     socket.removeAllListeners('amount');
-  //   });
-  // });
-
   // Main start
   $('#main-start').toggleClick(() => {
     // TODO: config this every time
@@ -374,11 +321,6 @@ $(document).ready(() => {
 
   // Error
   socket.on('error', (msg) => {
-    // $('#trigger')
-    //   .prepend(`<div class="alert alert-danger">
-    //     <span>For debugging only: ${msg}</span>
-    // </div>`);
-    // removeTriggerListOverLoad();
     console.log(msg);
   });
 
@@ -410,7 +352,7 @@ $(document).ready(() => {
   });
 
   // Active / Pending orders
-  socket.on('listOrder', (data) => {
+  socket.on('fetchOrder', (data) => {
     const orderTable = data.reduce((totalOrderTable, {
       datetime = moment().valueOf(), id = '-', symbol = '-', amount = 0, price = 0, side = '-', remaining = 0, type = 'open',
     }) => {
@@ -473,10 +415,6 @@ $(document).ready(() => {
 
     $(this).closest('tr').remove();
   });
-
-  // $('.market-action').click(function () {
-
-  // });
 
   // History orders
   socket.on('listHistoryOrder', (data) => {
