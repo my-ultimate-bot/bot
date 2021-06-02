@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "6.0.5",
+  "version": "6.0.7",
   "main": "app.js",
   "license": "UNLICENSED",
   "private": true,
