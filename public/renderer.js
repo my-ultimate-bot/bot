@@ -104,7 +104,6 @@ $(document).ready(() => {
     useSpikeStrategy: $('#main-use-spike-strategy'),
     spikeAmountPercentage: $('#main-spike-amount-percentage'),
     spikeTakeProfitPercentage: $('#main-spike-take-profit-percentage'),
-    spikeDCAPercentage: $('#main-spike-dca-percentage'),
     spikeStopLossPercentage: $('#main-spike-stop-loss-percentage'),
     spikeMaxOpenPosition: $('#main-spike-max-open-position'),
   };
@@ -209,7 +208,6 @@ $(document).ready(() => {
     const useSpikeStrategy = $('#main-use-spike-strategy').is(':checked');
     const spikeAmountPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
     const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 2.5;
-    const spikeDCAPercentage = $('#main-spike-dca-percentage').val() !== '' ? Number.parseFloat($('#main-spike-dca-percentage').val()) : 5;
     const spikeStopLossPercentage = $('#main-spike-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-spike-stop-loss-percentage').val()) : 7;
     const spikeMaxOpenPosition = $('#main-spike-max-open-position').val() !== '' ? Number.parseFloat($('#main-spike-max-open-position').val()) : 1;
 
@@ -242,7 +240,6 @@ $(document).ready(() => {
       useSpikeStrategy,
       spikeAmountPercentage,
       spikeTakeProfitPercentage,
-      spikeDCAPercentage,
       spikeStopLossPercentage,
       spikeMaxOpenPosition,
     });
