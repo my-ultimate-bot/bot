@@ -148,14 +148,8 @@ $(document).ready(() => {
 
     // Restore last states
     Object.keys(lastStatesRef).forEach((key) => {
-      if (key === 'skipSymbol' || key === 'dcaTradingSymbol') {
-        if (lastStates[key]) {
-          lastStatesRef[key].select2({ width: '100%' }).val(lastStates[key]).trigger('change');
-        } else if (key === 'dcaTradingSymbol') {
-          lastStatesRef[key].select2({ width: '100%' }).val(['BTC/USDT', 'ETH/USDT']).trigger('change');
-        } else {
-          lastStatesRef[key].select2({ width: '100%' });
-        }
+      if ((key === 'skipSymbol' || key === 'dcaTradingSymbol') && lastStates[key]) {
+        lastStatesRef[key].select2({ width: '100%' }).val(lastStates[key]).trigger('change');
       }
     });
 
