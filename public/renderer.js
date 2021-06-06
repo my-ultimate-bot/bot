@@ -142,7 +142,8 @@ $(document).ready(() => {
   // let intervalMAIN;
   socket.emit('fetchMarket');
   socket.on('fetchMarket', (symbol) => {
-    $('#manual-symbol').html(symbol).select2({ width: '100%' });
+    $('#manual-symbol').html(symbol).select2({ width: '100%' }).val(selectedCoin)
+      .trigger('change');
     $('#main-skip-symbol').html(symbol).select2({ width: '100%' });
     $('#main-dca-trading-symbol').html(symbol).select2({ width: '100%' });
 
