@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "6.1.16",
+  "version": "6.1.17",
   "main": "app.js",
   "license": "UNLICENSED",
   "private": true,
@@ -21,7 +21,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.51.5",
+    "ccxt": "^1.51.32",
     "coingecko-api": "^1.0.10",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -36,7 +36,7 @@
     "node-machine-id": "^1.1.12",
     "node-telegram-bot-api": "^0.53.0",
     "npm": "^6.14.13",
-    "ora": "^5.4.0",
+    "ora": "^5.4.1",
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.9",
     "public-ip": "^4.0.4",
@@ -48,6 +48,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "javascript-obfuscator": "^2.14.0"
+    "javascript-obfuscator": "^2.15.1"
   }
 }
