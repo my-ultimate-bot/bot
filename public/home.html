@@ -67,7 +67,7 @@
                           </div>
                           <div class="card-body">
                             <form class="form-horizontal">
-                              <div class="row">
+                              <div class="row mb-3">
                                 <div class="col-md-3">
                                   <div class="form-check">
                                     <label class="form-check-label">
@@ -78,6 +78,19 @@
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top"
                                         title="Reinvest for the next order. Eg: you used 0.1 BTC to trade and gained to 0.1015 BTC. If this option is enabled, then it will use 0.1015 BTC for the next trade. If it is disabled, the bot will use 0.1 BTC instead">Reinvestment</span>
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-md-3">
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input class="form-check-input" type="checkbox" name="main-break-event" checked
+                                        id="main-break-event">
+                                      <span class="form-check-sign">
+                                        <span class="check"></span>
+                                      </span>
+                                      <span data-toggle="tooltip" data-placement="top"
+                                        title="When your target profit hits 50% in price, the bot will change the stop loss to break-even price (your entry price)">Break-Even Stop Loss</span>
                                     </label>
                                   </div>
                                 </div>
