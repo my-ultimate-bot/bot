@@ -71,7 +71,6 @@ $(document).ready(() => {
   const lastStatesRef = {
     // Global
     reinvestment: $('#main-reinvestment'),
-    breakEven: $('#main-break-event'),
     timeOrder: $('#main-time-order'),
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
@@ -129,10 +128,8 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    const keyType = new Set(['reinvestment', 'breakEven', 'useMarketNeutralStrategy', 'useDcaStrategy', 'useDipStrategy', 'dipUseMarket', 'dipUseStableMarket', 'useSpikeStrategy']);
-
     Object.keys(lastStatesRef).forEach((key) => {
-      if (keyType.has(key)) {
+      if (key === 'reinvestment' || key === 'useMarketNeutralStrategy' || key === 'useDcaStrategy' || key === 'useDipStrategy' || key === 'dipUseMarket' || key === 'dipUseStableMarket' || key === 'useSpikeStrategy') {
         lastStatesRef[key].prop('checked', lastStates[key] || false);
       } else {
         lastStatesRef[key].val(lastStates[key]);
@@ -171,7 +168,6 @@ $(document).ready(() => {
 
     // Global
     const reinvestment = $('#main-reinvestment').is(':checked');
-    const breakEven = $('#main-break-event').is(':checked');
     const timeOrder = $('#main-time-order').val() !== '' ? Number.parseFloat($('#main-time-order').val()) : 45;
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
@@ -217,7 +213,6 @@ $(document).ready(() => {
       skipSymbol,
       minimumVolume,
       reinvestment,
-      breakEven,
       mode,
       scanInterval,
       useMarketNeutralStrategy,
