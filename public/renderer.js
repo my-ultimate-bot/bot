@@ -92,6 +92,7 @@ $(document).ready(() => {
 
     // Dip
     useDipStrategy: $('#main-use-dip-strategy'),
+    useDipCheckVolatileMarket: $('#main-use-dip-check-volatile-market'),
     dipMarketPlace: $('#main-dip-market-place'),
     dipUseMarket: $('#main-dip-use-market'),
     dipAmountPercentage: $('#main-dip-amount-percentage'),
@@ -103,6 +104,7 @@ $(document).ready(() => {
 
     // Spike
     useSpikeStrategy: $('#main-use-spike-strategy'),
+    useSpikeCheckVolatileMarket: $('#main-use-spike-check-volatile-market'),
     spikeAmountPercentage: $('#main-spike-amount-percentage'),
     spikeTakeProfitPercentage: $('#main-spike-take-profit-percentage'),
     spikeStopLossPercentage: $('#main-spike-stop-loss-percentage'),
@@ -129,7 +131,7 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    const keyType = new Set(['reinvestment', 'breakEven', 'useMarketNeutralStrategy', 'useDcaStrategy', 'useDipStrategy', 'dipUseMarket', 'dipUseStableMarket', 'useSpikeStrategy']);
+    const keyType = new Set(['reinvestment', 'breakEven', 'useMarketNeutralStrategy', 'useDcaStrategy', 'useDipStrategy', 'dipUseMarket', 'useDipCheckVolatileMarket', 'dipUseStableMarket', 'useSpikeStrategy', 'useSpikeCheckVolatileMarket']);
 
     Object.keys(lastStatesRef).forEach((key) => {
       if (keyType.has(key)) {
@@ -194,6 +196,7 @@ $(document).ready(() => {
 
     // Dip
     const useDipStrategy = $('#main-use-dip-strategy').is(':checked');
+    const useDipCheckVolatileMarket = $('#main-use-dip-check-volatile-market').is(':checked');
     const dipMarketPlace = $('#main-dip-market-place').val();
     const dipUseMarket = $('#main-dip-use-market').is(':checked');
     const dipAmountPercentage = $('#main-dip-amount-percentage').val() !== '' ? Number.parseFloat($('#main-dip-amount-percentage').val()) : 15;
@@ -205,6 +208,7 @@ $(document).ready(() => {
 
     // Spike
     const useSpikeStrategy = $('#main-use-spike-strategy').is(':checked');
+    const useSpikeCheckVolatileMarket = $('#main-use-spike-check-volatile-market').is(':checked');
     const spikeAmountPercentage = $('#main-spike-amount-percentage').val() !== '' ? Number.parseFloat($('#main-spike-amount-percentage').val()) : 5;
     const spikeTakeProfitPercentage = $('#main-spike-take-profit-percentage').val() !== '' ? Number.parseFloat($('#main-spike-take-profit-percentage').val()) : 2.5;
     const spikeStopLossPercentage = $('#main-spike-stop-loss-percentage').val() !== '' ? Number.parseFloat($('#main-spike-stop-loss-percentage').val()) : 7;
@@ -229,6 +233,7 @@ $(document).ready(() => {
       dcaPeriod,
       dcaTradingSymbol,
       useDipStrategy,
+      useDipCheckVolatileMarket,
       dipMarketPlace,
       dipUseMarket,
       dipAmountPercentage,
@@ -238,6 +243,7 @@ $(document).ready(() => {
       dipUseStableMarket,
       dipMaxOpenOrder,
       useSpikeStrategy,
+      useSpikeCheckVolatileMarket,
       spikeAmountPercentage,
       spikeTakeProfitPercentage,
       spikeStopLossPercentage,
