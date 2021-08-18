@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "7.1.5",
+  "version": "7.1.6",
   "main": "app.js",
   "license": "UNLICENSED",
   "private": true,
@@ -36,7 +36,7 @@
     "moment": "^2.29.1",
     "node-machine-id": "^1.1.12",
     "node-telegram-bot-api": "^0.54.0",
-    "npm": "^6.14.13",
+    "npm": "^6.14.14",
     "ora": "^5.4.1",
     "passport": "^0.4.1",
     "passport-cookie": "^1.0.9",
