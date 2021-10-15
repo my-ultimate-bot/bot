@@ -76,6 +76,7 @@ $(document).ready(() => {
     timeFrame: $('#main-time-frame'),
     tradingStrictness: $('#main-trading-strictness'),
     skipSymbol: $('#main-skip-symbol'),
+    skipSymbolReverse: $('#main-skip-symbol-reverse'),
     minimumVolume: $('#main-minimum-volume'),
     mode: $('#main-mode'),
     scanInterval: $('#main-scan-interval'),
@@ -178,6 +179,7 @@ $(document).ready(() => {
     const timeFrame = $('#main-time-frame').val();
     const tradingStrictness = $('#main-trading-strictness').val();
     const skipSymbol = $('#main-skip-symbol').val();
+    const skipSymbolReverse = $('#main-skip-symbol-reverse').is(':checked');
     const minimumVolume = $('#main-minimum-volume').val() !== '' ? Number.parseFloat($('#main-minimum-volume').val()) : 50000;
     const mode = $('#main-mode').val();
     const scanInterval = $('#main-scan-interval').val() !== '' ? Number.parseFloat($('#main-scan-interval').val()) : 30;
@@ -219,6 +221,7 @@ $(document).ready(() => {
       timeFrame,
       tradingStrictness,
       skipSymbol,
+      skipSymbolReverse,
       minimumVolume,
       reinvestment,
       breakEven,
