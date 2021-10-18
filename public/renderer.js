@@ -132,7 +132,7 @@ $(document).ready(() => {
 
   socket.on('lastStates', (states) => {
     lastStates = states;
-    const keyType = new Set(['reinvestment', 'breakEven', 'useMarketNeutralStrategy', 'useDcaStrategy', 'useDipStrategy', 'dipUseMarket', 'useDipCheckVolatileMarket', 'dipUseStableMarket', 'useSpikeStrategy', 'useSpikeCheckVolatileMarket']);
+    const keyType = new Set(['reinvestment', 'breakEven', 'skipSymbolReverse', 'useMarketNeutralStrategy', 'useDcaStrategy', 'useDipStrategy', 'dipUseMarket', 'useDipCheckVolatileMarket', 'dipUseStableMarket', 'useSpikeStrategy', 'useSpikeCheckVolatileMarket']);
 
     Object.keys(lastStatesRef).forEach((key) => {
       if (keyType.has(key)) {
