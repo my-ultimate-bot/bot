@@ -153,6 +153,21 @@ $(document).ready(() => {
     $('#main-skip-symbol').html(symbol).select2({ width: '100%' });
     $('#main-dca-trading-symbol').html(symbol).select2({ width: '100%' });
 
+    // Default skip symbols list
+    $('#main-skip-symbol').select2({ width: '100%' }).val([
+      'BTC/USDT',
+      'ETH/USDT',
+      'BNB/USDT',
+      'ADA/USDT',
+      'XRP/USDT',
+      'SOL/USDT',
+      'DOT/USDT',
+      'UNI/USDT',
+      'LUNA/USDT',
+      'LTC/USDT',
+      'AVAX/USDT',
+    ]).trigger('change');
+
     // Restore last states
     Object.keys(lastStatesRef).forEach((key) => {
       if ((key === 'skipSymbol' || key === 'dcaTradingSymbol') && lastStates[key]) {

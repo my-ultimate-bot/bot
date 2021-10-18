@@ -97,13 +97,13 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="45 means after 45 minutes, if the bot cannot buy the coin, it will cancel the order">Time
+                                  title="5 means after 5 minutes, if the bot cannot buy the coin, it will cancel the order">Time
                                   Order Expiration</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <input type="number" class="form-control" name="main-time-order"
-                                      id="main-time-order" value="45"
-                                      placeholder="Eg: 45 means the order will be expired in 45 minutes">
+                                      id="main-time-order" value="5"
+                                      placeholder="Eg: 5 means the order will be expired in 45 minutes">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
@@ -119,9 +119,9 @@
                                       name="main-time-frame">
                                       <option value="1m">1 minute</option>
                                       <option value="3m">3 minute</option>
-                                      <option value="5m">5 minutes</option>
+                                      <option value="5m" selected>5 minutes</option>
                                       <option value="15m">15 minutes</option>
-                                      <option value="30m" selected>30 minutes</option>
+                                      <option value="30m">30 minutes</option>
                                       <option value="1h">1 hour</option>
                                       <option value="2h">2 hours</option>
                                       <option value="4h">4 hours</option>
@@ -166,7 +166,7 @@
                                 <div class="col-md-3">
                                   <div class="form-check">
                                     <label class="form-check-label">
-                                      <input class="form-check-input" type="checkbox" name="main-skip-symbol-reverse"
+                                      <input class="form-check-input" type="checkbox" name="main-skip-symbol-reverse" checked
                                         id="main-skip-symbol-reverse">
                                       <span class="form-check-sign">
                                         <span class="check"></span>
@@ -206,12 +206,12 @@
                               </div>
                               <div class="row">
                                 <label class="col-md-3 col-form-label" data-toggle="tooltip" data-placement="top"
-                                  title="The interval between 2 scan. To avoid being blocked from the exchange, I recommend set this number > than 30">Scan Interval</label>
+                                  title="The interval between 2 scan">Scan Interval</label>
                                 <div class="col-md-6">
                                   <div class="form-group">
                                     <input type="number" class="form-control" name="main-scan-interval"
-                                      id="main-scan-interval" value="30"
-                                      placeholder="Eg: The interval between 2 scan. To avoid being blocked from the exchange, I recommend set this number > than 30">
+                                      id="main-scan-interval" value="10"
+                                      placeholder="Eg: The interval between 2 scan">
                                   </div>
                                 </div>
                                 <div class="col-md-3">
@@ -380,7 +380,7 @@
                               <div class="col-md-3">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="main-use-dip-check-volatile-market" checked
+                                    <input class="form-check-input" type="checkbox" name="main-use-dip-check-volatile-market"
                                       id="main-use-dip-check-volatile-market">
                                     <span class="form-check-sign">
                                       <span class="check"></span>
@@ -538,7 +538,7 @@
                               <div class="col-md-3">
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="main-use-spike-check-volatile-market" checked
+                                    <input class="form-check-input" type="checkbox" name="main-use-spike-check-volatile-market"
                                       id="main-use-spike-check-volatile-market">
                                     <span class="form-check-sign">
                                       <span class="check"></span>
