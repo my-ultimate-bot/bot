@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "7.2.4",
+  "version": "7.2.5",
   "main": "app.js",
   "license": "UNLICENSED",
   "private": true,
@@ -21,7 +21,7 @@
     "axios": "^0.22.0",
     "body-parser": "^1.19.0",
     "bottleneck": "^2.19.5",
-    "ccxt": "^1.58.55",
+    "ccxt": "^1.58.68",
     "coingecko-api": "^1.0.10",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
