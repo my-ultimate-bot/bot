@@ -1,6 +1,6 @@
 {
   "name": "ultimate-bot",
-  "version": "7.2.8",
+  "version": "7.2.9",
   "main": "app.js",
   "license": "UNLICENSED",
   "private": true,
@@ -17,6 +17,7 @@
   "description": "Ultimate bot",
   "dependencies": {
     "adm-zip": "^0.5.9",
+    "async-mutex": "^0.4.0",
     "auto-reload-json": "^1.0.2",
     "axios": "^0.24.0",
     "body-parser": "^1.19.0",
